@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+
+class ClearImageController extends AbstractController
+{
+    /**
+     * @Route("/clearImage", name="clearImage", methods={"GET"})
+     */
+    public function index(): Response
+    {  
+        $uploaddir = '../public/images/uploads/';
+        $myfiles = scandir($uploaddir);
+
+        for ($i=2; $i < count($myfiles); $i++) { 
+            unlink($uploaddir .  $myfiles[$i]);
+        }
+        return $this->redirectToRoute('home');
+    }
+
+}
