@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 /**
  * @Route("/lesson")
@@ -112,15 +114,19 @@ class LessonController extends AbstractController
      * @Route("/send/{id}", name="send_image", methods={"POST"})
      * @IsGranted("ROLE_STUDENT")
      */
-    public function sendImage(Request $request, Lesson $lesson): Response
+    public function sendMail(Request $request, Lesson $lesson, MailerInterface $mailer): Response
     {
-        $user = $this->getUser();
-        $from_email = $user->getEmail();
-        $recipient_email = $lesson->getTheme()->getUser()->getEmail();
-        $message = "test message";
-        $subject = 'TEST';
-        $headers = "From:".$from_email."\r\n"; // Sender Email
-        $rezult = mail('dimasik.loginovskiy.00@mail.ru', $subject, $message);
-        return $this->redirectToRoute('lesson_show', ['id' => $lesson->getId()]);
+        $email = (new Email())
+        ->from('dimasik.loginovskiy.00@mail.ru')
+        ->to('interestingfacts223@gmail.com')
+        //->cc('cc@example.com')
+        //->bcc('bcc@example.com')
+        //->replyTo('fabien@example.com')
+        //->priority(Email::PRIORITY_HIGH)
+        ->subject('Time for Symfony Mailer!')
+        ->text('Sending emails is fun again!')
+        ->html('<p>See Twig integration for better HTML integration!</p>');
+
+        $mailer->send($email);
     }
 }
