@@ -20,13 +20,11 @@
                         <div class="accordion-body">
                             <div class="list-group">
                                 {% for lesson in theme.lessons%}
-                                    {# <a href="{{ path('lesson_show', {'id': lesson.id}) }}" class="list-group-item list-group-item-action m-2">{{lesson.name}}</a> #}
-                                    <a href="#" class="list-group-item list-group-item-action m-2">{{lesson.name}}</a>
+                                    <a href="{{ path('lesson_show', {'id': lesson.id}) }}" class="list-group-item list-group-item-action m-2">{{lesson.name}}</a>
                                 {% endfor %} 
                                 {% if is_granted('ROLE_TEACHER') %} 
                                 <div class="list-group" >
-                                    {# <a href="{{ path('lesson_new', {'themeId' : theme.id}) }}" class="list-group-item list-group-item-action m-2 create-lesson">Создать</a> #}
-                                    <a href="#" class="list-group-item list-group-item-action m-2 create-lesson">Создать</a>
+                                    <a href="{{ path('lesson_new', {'themeId' : theme.id}) }}" class="list-group-item list-group-item-action m-2 create-lesson">Создать</a>
                                 </div>
                                 <div class="row">
                                     {{ include('theme/_delete_form.html.twig') }}

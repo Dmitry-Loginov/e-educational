@@ -35,7 +35,6 @@ class ThemeController extends AbstractController
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        
         $theme = new Theme();
         $form = $this->createForm(ThemeType::class, $theme);
         $form->handleRequest($request);
@@ -66,7 +65,6 @@ class ThemeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
             return $this->redirectToRoute('theme_index', [], Response::HTTP_SEE_OTHER);
         }
 

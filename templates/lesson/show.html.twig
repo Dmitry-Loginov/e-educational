@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Урок{% endblock %}
+
+{% block body %}
+    <a href="{{ path('theme_index') }}" class="back">назад к списку</a>
+
+    {% if is_granted('ROLE_ADMIN') %} 
+        <a href="{{ path('lesson_edit', {'id': lesson.id}) }}" class="back">изменить</a>
+        {{ include('lesson/_delete_form.html.twig') }}
+    {% endif %}
+
+    <div class="container lesson-container">
+    <h1>{{ lesson.name }} </h1>
+        <div class="row m-2 mt-3 p-2 lesson-row">
+            <div class="col-md-2 lesson-head">Цель</div>
+            <div class="col-md-auto lesson-text">{{ lesson.target }}</div>
+        </div>
+        <div class="row m-2 p-2 lesson-row">
+            <div class="col-md-2 lesson-head">Конечный результат</div>
+            <div class="col-md-auto lesson-text">{{ lesson.target }}</div>
+        </div>
+        <div class="row m-2 p-2 lesson-row">
+            <div class="col-md-2 lesson-head">Инструменты и материалы</div>
+            <div class="col-md-auto lesson-text">{{ lesson.target }}</div>
+        </div>
+        <div class="accordion accordion-flush" id="accordionTheory">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTheory" aria-expanded="true" aria-controls="collapseTheory">
+                    <strong>Теоретический материал</strong>
+                </button>
+                </h2>
+                <div id="collapseTheory" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionTheory">
+                <div class="accordion-body">
+                    {{ lesson.theory|raw }}
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-2 p-2 lesson-row">
+            <div class="col-md-12 lesson-head">Видеоурок</div>
+            <div class="col-md-12 lesson-text">{{ lesson.video|raw }}</div>
+        </div>
+        <div class="accordion accordion-flush" id="accordionTest">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTest" aria-expanded="true" aria-controls="collapseTest">
+                    <strong>Пройти тест</strong>
+                </button>
+                </h2>
+                <div id="collapseTest" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionTest">
+                <div class="accordion-body">
+                    {{ lesson.test|raw }}
+                </div>
+                </div>
+            </div>
+        </div>
+        {% if is_granted('ROLE_STUDENT') %} 
+            <div class="row m-2 p-2 lesson-row">
+                <div class="col-md-12 lesson-head">Отправить работу</div>
+                <form enctype="multipart/form-data" name="sendImage" method="post" action="{{ path('send_image', {'id': lesson.id}) }}">
+                    <input class="form-control" type="file" id="formFile" name="formFile" onchange="preview()">
+                    <button onclick="clearImage()" class="btn btn-primary mt-3">Отправить</button>
+                </form>
+                </div>
+                <img id="frame" src="" class="rounded mx-auto d-block" />
+            </div>
+        {% endif %}
+   </div> 
+
+    
+{% endblock %}
