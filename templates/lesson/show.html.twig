@@ -59,8 +59,8 @@
         {% if is_granted('ROLE_STUDENT') %} 
             <div class="row m-2 p-2 lesson-row">
                 <div class="col-md-12 lesson-head">Отправить работу</div>
-                <form enctype="multipart/form-data" name="sendImage" method="post" action="{{ path('send_image', {'id': lesson.id}) }}">
-                    <input class="form-control" type="file" id="formFile" name="formFile" onchange="preview()">
+                <form enctype="multipart/form-data" name="sendImage" method="post" accept="image/jpeg, image/jpg" action="{{ path('send_image', {'id': lesson.id}) }}">
+                    <input class="form-control" type="file" id="image" name="image" onchange="preview()">
                     <button onclick="clearImage()" class="btn btn-primary mt-3">Отправить</button>
                 </form>
                 </div>

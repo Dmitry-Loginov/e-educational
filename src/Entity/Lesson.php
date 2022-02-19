@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LessonRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -62,6 +64,16 @@ class Lesson
      * @ORM\JoinColumn(nullable=false)
      */
     private $theme;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="lesson", orphanRemoval=true)
+     */
+    private $answers;
+
+    public function __construct()
+    {
+        $this->answers = new ArrayCollection();
+    }
 
     public function __toString(): ?string
     {
@@ -177,6 +189,36 @@ class Lesson
     public function setTheme(?Theme $theme): self
     {
         $this->theme = $theme;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Answer>
+     */
+    public function getAnswers(): Collection
+    {
+        return $this->answers;
+    }
+
+    public function addAnswer(Answer $answer): self
+    {
+        if (!$this->answers->contains($answer)) {
+            $this->answers[] = $answer;
+            $answer->setLesson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnswer(Answer $answer): self
+    {
+        if ($this->answers->removeElement($answer)) {
+            // set the owning side to null (unless already changed)
+            if ($answer->getLesson() === $this) {
+                $answer->setLesson(null);
+            }
+        }
 
         return $this;
     }

@@ -54,9 +54,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $themes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $answers;
+
     public function __construct()
     {
         $this->themes = new ArrayCollection();
+        $this->answers = new ArrayCollection();
     }
 
     public function __toString(): ?string
@@ -202,6 +208,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($theme->getUser() === $this) {
                 $theme->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Answer>
+     */
+    public function getAnswers(): Collection
+    {
+        return $this->answers;
+    }
+
+    public function addAnswer(Answer $answer): self
+    {
+        if (!$this->answers->contains($answer)) {
+            $this->answers[] = $answer;
+            $answer->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnswer(Answer $answer): self
+    {
+        if ($this->answers->removeElement($answer)) {
+            // set the owning side to null (unless already changed)
+            if ($answer->getUser() === $this) {
+                $answer->setUser(null);
             }
         }
 

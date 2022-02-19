@@ -114,8 +114,24 @@ class LessonController extends AbstractController
      * @Route("/send/{id}", name="send_image", methods={"POST"})
      * @IsGranted("ROLE_STUDENT")
      */
-    public function sendImage(Request $request, Lesson $lesson, MailerInterface $mailer): Response
+    public function sendImage(Request $request, Lesson $lesson, MailerInterface $mailer): void
     {
-        return $this->redirectToRoute('lesson_show', ['id' => $lesson->getId()]);
+        $uploaddir = '../public/images/uploads/';
+        $uploadfile = $uploaddir . basename($_FILES['image']['name']);
+
+        echo '<pre>';
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)) {
+            echo "Файл корректен и был успешно загружен.\n";
+            echo basename($_FILES['image']['name']);
+            echo $_FILES['image']['name'];
+        } else {
+            echo "Возможная атака с помощью файловой загрузки!\n";
+        }
+
+        echo 'Некоторая отладочная информация:';
+        print_r($_FILES);
+
+        print "</pre>";
+        // return $this->redirectToRoute('lesson_show', ['id' => $lesson->getId()]);
     }
 }
