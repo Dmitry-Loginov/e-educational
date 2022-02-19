@@ -114,20 +114,8 @@ class LessonController extends AbstractController
      * @Route("/send/{id}", name="send_image", methods={"POST"})
      * @IsGranted("ROLE_STUDENT")
      */
-    public function sendMail(Request $request, Lesson $lesson, MailerInterface $mailer): Response
+    public function sendImage(Request $request, Lesson $lesson, MailerInterface $mailer): Response
     {
-        $email = (new Email())
-        ->from('dimasik.loginovskiy.00@mail.ru')
-        ->to('interestingfacts223@gmail.com')
-        //->cc('cc@example.com')
-        //->bcc('bcc@example.com')
-        //->replyTo('fabien@example.com')
-        //->priority(Email::PRIORITY_HIGH)
-        ->subject('Time for Symfony Mailer!')
-        ->text('Sending emails is fun again!')
-        ->html('<p>See Twig integration for better HTML integration!</p>');
-
-        $mailer->send($email);
         return $this->redirectToRoute('lesson_show', ['id' => $lesson->getId()]);
     }
 }
