@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Профиль {{ user.email }}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('admin_index') }}" class="back">назад к списку</a>
+
+    <div class="container lesson-container" style="padding-top:10px;">
+        <h2 class="text-break">Пользователь {{ user.email }}</h2>
+        <div class="row m-2 mt-3 p-2 lesson-row">
+                <div class="col-md-2 lesson-head">Id</div>
+                <div class="col-md-auto lesson-text">{{ user.id }}</div>
+        </div>
+        <div class="row m-2 mt-3 p-2 lesson-row">
+                <div class="col-md-2 lesson-head">Роль</div>
+                <div class="col-md-auto lesson-text">{{ user.roles ? user.roles|json_encode : '' }}</div>
+        </div>
+        <div class="row m-2 mt-3 p-2 lesson-row">
+                <div class="col-md-2 lesson-head">Хэш пароля</div>
+                <div class="col-md-auto lesson-text text-break">{{ user.password }}</div>
+        </div>
+
+        <form id="saveUser" method="post" action="{{ path('set_user_role', {'id' : user.id}) }}">
+            <p>Роль</p>
+            <select class="form-select" name="rolesForm">
+                {% for role in roles %}
+                    <option value = "{{role}}">{{role}}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <input type="submit" class="btn btn-primary" value="{{button_label|default('Сохранить') }}">
+        </form>
+    </div>
+        
+{% endblock %}

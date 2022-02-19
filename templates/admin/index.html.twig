@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Пользователи{% endblock %}
+
+{% block body %}
+
+    <div class="container lesson-container">
+    <h1>Пользователи</h1>
+        {% for user in users %}
+        <div class="row m-2 mt-3 p-2 lesson-row">
+            <div class="col-md lesson-head p-2 text-break">{{ user.email }}</div>
+            <div class="col-md lesson-text p-2">{{ user.roles ? user.roles|json_encode : '' }}</div>
+            <a href="{{ path('admin_edit', {'id': user.id}) }}" class="col-md p-2 changeRole">изменить</a>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -32,8 +32,7 @@
                         </li>
                         {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item">
-                            {# <a href={{ path( 'admin_index') }} class="nav-link">Пользователи</a> #}
-                            <a href="#" class="nav-link">Пользователи</a>
+                            <a href={{ path( 'admin_index') }} class="nav-link">Пользователи</a>
                         </li>
                         {% endif %}
                         <li class="nav-item dropdown">
