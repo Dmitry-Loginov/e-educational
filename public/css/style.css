@@ -1,0 +1,442 @@
+*{font-family: 'Futura Pt';}
+.bg-user {
+    background-color: rgb(132, 38, 38);
+}
+
+.nav-link {
+    color: white;
+    /* font-size: 0.8em; */
+}
+
+.nav-link:hover {
+    color: white;
+}
+
+.nav-link:focus {
+    color: white;
+}
+
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.custom-toggler {
+    background-color: transparent;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+.text-erior {
+    margin-bottom: 17px;
+}
+
+h2.display-6 {
+    color: #313131;
+}
+
+.welcome {
+    border: 5px solid rgb(132, 38, 38);
+    border-radius: 10px;
+    max-width: 1200px;
+    text-align: center;
+    background: #cbcbcb;
+    padding: 50px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: calc(25%);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    margin-top: -3%;
+}
+
+.text-welcome {
+    border: 1px solid rgb(132, 38, 38);
+    text-align: justify;
+    padding: 5px;
+    border-radius: 2px;
+    color: white;
+    background-color: #842626;
+}
+
+.auth {
+    border: 1px solid rgb(132, 38, 38);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 5px;
+    border-radius: 2px;
+}
+
+body {
+    background-image: url('../images/b.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.auth>a {
+    border-radius: 0px;
+    background-color: rgb(132, 38, 38);
+    border-color: rgb(132, 38, 38);
+}
+
+.footer {
+    width: 100%;
+    background-color: #842626;
+    color: white;
+}
+
+.footer p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.form-control {
+    border-radius: 0;
+    border-color: rgb(132, 38, 38);
+    font-size: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.btn-primary {
+    width: 100%;
+    border-radius: 0;
+    background-color: rgb(132, 38, 38);
+    border-color: rgb(132, 38, 38);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    border-radius: 0px;
+    background-color: white;
+    border-color: rgb(132, 38, 38);
+    color: rgb(132, 38, 38);
+}
+
+.form-in {
+    margin-top: 10%;
+    width: 400px;
+    border: 1px solid rgb(132, 38, 38);
+    background-color: whitesmoke;
+    padding: 10px;
+    border-width: medium;
+}
+
+.form-create {
+    border: 1px solid rgb(132, 38, 38);
+    background-color: whitesmoke;
+    padding: 10px;
+    border-width: thin;
+}
+
+label {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#remember {
+    font-weight: normal;
+}
+
+.head-in {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.btn-in {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 20px;
+}
+
+.checkbox__input {
+    -webkit-appearance: none;
+    appearance: none;
+    position: absolute;
+}
+
+.checkbox__label:before {
+    content: "";
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border: 1px solid rgb(132, 38, 38);
+    background-color: #fff;
+    z-index: 1;
+    transition: background .1s linear, border .1s linear;
+    margin-right: 7px;
+    cursor: pointer;
+}
+
+.checkbox__label {
+    cursor: pointer;
+}
+
+.checkbox__input:checked+.checkbox__label:before {
+    background: url("https://htmlbase.ru/storage/app/media/checkbox/check.svg") no-repeat;
+    background-size: 22px 22px;
+    background-color: rgb(132, 38, 38);
+    border-color: rgb(132, 38, 38);
+}
+
+.form-row {
+    position: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.error {
+    color: red;
+}
+
+h1,
+h2,
+h3 {
+    color: #842626
+}
+
+.head-row {
+    border-bottom: 2px solid #842626;
+    background-color: #842626;
+    color: whitesmoke;
+}
+
+tr {
+    background-color: snow;
+}
+
+a {
+    color: #842626;
+}
+
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+    border: none;
+}
+
+.accordion-button:focus {
+    border: none;
+    outline: 0;
+    box-shadow: none;
+}
+
+.table>:not(caption)>*>* {
+    padding: .5rem .5rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 1px;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    transform: rotate(-180deg);
+}
+
+.accordion-button:not(.collapsed) {
+    color: #000000;
+    background-color: #84262647;
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .125);
+}
+
+.list-group {
+    border-radius: 0;
+}
+
+.form-control:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: #842626;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(132 38 38 / 25%);
+}
+
+.list-group-item+.list-group-item {
+    border-top-width: 1px;
+}
+
+.list-group-item-action:focus,
+.list-group-item-action:hover {
+    z-index: 1;
+    text-decoration: none;
+    background-color: #6f6f6f21;
+    box-sizing: border-box;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.create-lesson {
+    background-color: #842626;
+    color: white;
+    text-align: center;
+}
+
+.create-lesson:focus,
+.create-lesson:hover {
+    background-color: white;
+    color: #842626;
+    text-align: center;
+    border: 1px solid #842626;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    color: black;
+    text-decoration: none;
+    background-color: #84262647;
+}
+
+.btn-check:focus+.btn-primary,
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.25rem rgb(132 38 38 / 25%);
+}
+
+.btn-check:active+.btn-primary:focus,
+.btn-check:checked+.btn-primary:focus,
+.btn-primary.active:focus,
+.btn-primary:active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.25rem rgb(132 38 38 / 25%);
+}
+
+.form-select:focus {
+    border-color: #842626;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(132 38 38 / 25%);
+}
+
+.theme-header {
+    color: white;
+}
+
+.bordo {
+    color: #842626;
+}
+
+.black {
+    color: black;
+}
+
+@media (max-width: 768px) {
+    .auth>.btn {
+        font-size: 13px;
+    }
+}
+
+a.link {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px;
+    background-color: #842626;
+    color: #fdfffc;
+    font-weight: 600;
+}
+
+a.link:hover {
+    border: 1px solid #842626;
+    color: #842626;
+    background-color: white;
+    font-weight: 600;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border .15s ease-in-out;
+}
+
+.back {
+    display: inline-block;
+    border: 1px solid white;
+    padding: 3px;
+    text-decoration: none;
+    background-color: #6f6f6fed;
+    margin: 0 2px 4px 2px;
+    color: white;
+}
+
+
+.back:hover{color: white;}
+
+.lesson-row {
+    border: 1px solid #842626;
+    color: black;
+    background-color: white;
+}
+
+.lesson-container {
+    background-color: whitesmoke;
+    border: 2px solid #842626;
+    padding-bottom: 8px;
+}
+
+.lesson-head {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.lesson-text {
+    margin-bottom: 5px;
+}
+
+.changeRole {
+    background-color: #842626;
+    color: white;
+    text-decoration: none;
+    width: min-content;
+    text-align: center;
+}
+
+.changeRole:hover,
+.changeRole:focus {
+    border: 1px solid #842626;
+    background-color: white;
+    color: #842626;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border .15s ease-in-out;
+}
+
+#saveUser {
+    margin-bottom: 10px;
+}
+
+.form-del{
+    display: inline;
+    margin-left: 8px;
+    width: fit-content;
+    margin-bottom: 5px;
+}
+
+#accordionTheory, #accordionTest{
+    border: 1px solid #842626;
+    margin: 0px 8px 0px 8px;
+    box-sizing: border-box;
+}
+
+#frame{
+    max-width: 500px;
+    max-height: 700px;
+    transition: all .35s ease-in-out;
+}
+
+#frame:hover{
+    max-width: 900px;
+    max-height: 1100px;
+    transition: all .35s ease-in-out;
+}

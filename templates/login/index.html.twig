@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="row form-row">
+    <div class="form-in">
+        <h1 class="head-in">Вход</h1>
+        <form action="{{ path('login') }}" method="post">
+            <div class="form-group">
+                <label for="username" class="control-label">Email:</label>
+                <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}"/>
+            </div>
+            <div class="form-group">
+                <label for="password" class="control-label">Пароль:</label>
+                <input type="password" id="password" name="_password" class="form-control"/>
+            </div>
+            <div class="form-group checkbox_group">
+                <div class="check">
+                    <input type="checkbox" id="remember_me" name="_remember_me" checked class="control-label checkbox__input"/>
+                    <label for="remember_me" id="remember" class="checkbox__label">Запомнить меня</label>
+                </div>
+            </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <div class="form-group" style="margin-top:5px;">
+                <button type="submit" class="btn btn-primary btn-in">Войти</button>
+            </div>
+            {% if error %}
+            <div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endblock %}

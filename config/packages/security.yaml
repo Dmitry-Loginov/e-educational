@@ -20,12 +20,29 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            form_login:
+                login_path: login
+                check_path: login
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
+            logout:
+                    path: app_logout
+        secured_area:
+            form_login:
+                enable_csrf: true
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
+
+    role_hierarchy:
+        ROLE_STUDENT:   ROLE_GUEST
+        ROLE_TEACHER:   ROLE_STUDENT
+        ROLE_ADMIN: ROLE_TEACHER
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used

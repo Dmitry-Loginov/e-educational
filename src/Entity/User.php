@@ -47,6 +47,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $groupName;
 
+    public function __toString(): ?string
+    {
+        return $this->getEmail();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,7 +94,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        if(count($roles) == 0)
+            $roles[] = 'ROLE_GUEST';
 
         return array_unique($roles);
     }
