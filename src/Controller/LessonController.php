@@ -84,7 +84,7 @@ class LessonController extends AbstractController
      * @Route("/{id}/edit", name="lesson_edit", methods={"GET", "POST"})
      * @IsGranted("ROLE_TEACHER")
      */
-    public function edit(Request $request, Lesson $lesson, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Lesson $lesson, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
         $form = $this->createForm(LessonType::class, $lesson);
         $form->handleRequest($request);
