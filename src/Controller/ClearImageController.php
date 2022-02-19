@@ -18,7 +18,7 @@ class ClearImageController extends AbstractController
         $uploaddir = '../public/images/uploads/';
         $myfiles = scandir($uploaddir);
 
-        for ($i=2; $i < count($myfiles); $i++) { 
+        for ($i=3; $i < count($myfiles); $i++) { 
             unlink($uploaddir .  $myfiles[$i]);
         }
         return $this->redirectToRoute('home');
