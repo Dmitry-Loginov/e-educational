@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @Route("/lesson")
@@ -114,24 +115,20 @@ class LessonController extends AbstractController
      * @Route("/send/{id}", name="send_image", methods={"POST"})
      * @IsGranted("ROLE_STUDENT")
      */
-    public function sendImage(Request $request, Lesson $lesson, MailerInterface $mailer): void
+    public function sendImage(Request $request, Lesson $lesson, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
+
+
         $uploaddir = '../public/images/uploads/';
-        $uploadfile = $uploaddir . basename($_FILES['image']['name']);
-
-        echo '<pre>';
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)) {
-            echo "Файл корректен и был успешно загружен.\n";
-            echo basename($_FILES['image']['name']);
-            echo $_FILES['image']['name'];
-        } else {
-            echo "Возможная атака с помощью файловой загрузки!\n";
+        $uploadfile = $uploaddir . Uuid::v4()->toRfc4122() . '-' . basename($_FILES['image']['name']);
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile) == false) {
+            $themeId = $lesson->getTheme()->getId();
+            return $this->render('lesson/show.html.twig', [
+                'lesson' => $lesson,
+                'themeId' => $themeId,
+                'error_msg' => 'Произошла ошибка при отправке изображения.',
+            ]);
         }
-
-        echo 'Некоторая отладочная информация:';
-        print_r($_FILES);
-
-        print "</pre>";
-        // return $this->redirectToRoute('lesson_show', ['id' => $lesson->getId()]);
+        return $this->redirectToRoute('lesson_show', ['id' => $lesson->getId()]);
     }
 }

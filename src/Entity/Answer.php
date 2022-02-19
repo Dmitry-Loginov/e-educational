@@ -39,6 +39,11 @@ class Answer
      */
     private $date;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $mark;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +93,18 @@ class Answer
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getMark(): ?int
+    {
+        return $this->mark;
+    }
+
+    public function setMark(?int $mark): self
+    {
+        $this->mark = $mark;
 
         return $this;
     }
