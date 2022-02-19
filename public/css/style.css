@@ -128,12 +128,16 @@ body {
 }
 
 .form-in {
-    margin-top: 10%;
+    margin-top: 7%;
     width: 400px;
     border: 1px solid rgb(132, 38, 38);
     background-color: whitesmoke;
     padding: 10px;
     border-width: medium;
+}
+
+.form-register {
+    margin-top: 1%;
 }
 
 .form-create {
