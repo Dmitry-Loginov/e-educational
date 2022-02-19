@@ -128,5 +128,6 @@ class LessonController extends AbstractController
         ->html('<p>See Twig integration for better HTML integration!</p>');
 
         $mailer->send($email);
+        return $this->redirectToRoute('lesson_show', ['id' => $lesson->getId()]);
     }
 }
