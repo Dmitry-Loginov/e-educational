@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Entity\Theme;
 use App\Entity\Lesson;
 use App\Entity\User;
+use App\Entity\Answer;
 use App\Form\LessonType;
 use App\Repository\LessonRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,6 +18,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Uid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * @Route("/lesson")
@@ -116,10 +118,8 @@ class LessonController extends AbstractController
      * @Route("/send/{id}", name="send_image", methods={"POST"})
      * @IsGranted("ROLE_STUDENT")
      */
-    public function sendImage(Request $request, Lesson $lesson, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
+    public function sendAnswer(Request $request, Lesson $lesson, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
-
-
         $uploaddir = '../public/images/uploads/';
         $uploadfile = $uploaddir . Uuid::v4()->toRfc4122() . '-' . basename($_FILES['image']['name']);
         if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile) == false) {
@@ -127,9 +127,56 @@ class LessonController extends AbstractController
             return $this->render('lesson/show.html.twig', [
                 'lesson' => $lesson,
                 'themeId' => $themeId,
-                'error_msg' => 'Произошла ошибка при отправке изображения.',
+                'inf_msg' => 'Произошла ошибка при отправке изображения.',
             ]);
+        } 
+        
+        
+        set_error_handler(function($errno, $errstr, $errfile, $errline) {
+            // error was suppressed with the @-operator
+            if (0 === error_reporting()) {
+                return false;
+            }
+            
+            throw new Exception('1',1);
+        });
+
+        
+
+        try{
+            $image = imagecreatefrompng($uploadfile); 
+            $bg = imagecreatetruecolor(imagesx($image), imagesy($image));
+            imagefill($bg, 0, 0, imagecolorallocate($bg, 255, 255, 255));
+            imagealphablending($bg, TRUE);
+            imagecopy($bg, $image, 0, 0, 0, 0, imagesx($image), imagesy($image));
+            imagedestroy($image);
+            $quality = 50; // 0 = worst / smaller file, 100 = better / bigger file 
+            imagejpeg($bg, $uploadfile . ".jpg", $quality);
+            imagedestroy($bg);
+            unlink($uploadfile);
+            $uploadfile = $uploadfile . ".jpg";
         }
-        return $this->redirectToRoute('lesson_show', ['id' => $lesson->getId()]);
+        catch(Exception $e)
+        {
+            return $this->redirectToRoute('lesson_show', ['id' => $lesson->getId()]);
+        }
+        
+        restore_error_handler();
+
+        date_default_timezone_set('Europe/Minsk');
+
+        $answer = new Answer();
+        $answer
+        -> setLesson($lesson)
+        -> setUser($this->getUser())
+        -> setPathImage($uploadfile)
+        -> setDate(new \DateTime());
+
+        $entityManager->persist($answer);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('lesson_show', [
+            'id' => $lesson->getId(),
+        ]);
     }
 }
