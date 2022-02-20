@@ -77,12 +77,18 @@ class LessonController extends AbstractController
     /**
      * @Route("/{id}", name="lesson_show", methods={"GET"})
      */
-    public function show(Lesson $lesson): Response
+    public function show(Lesson $lesson, ManagerRegistry $doctrine): Response
     {
         $themeId = $lesson->getTheme()->getId();
+        $answer = $doctrine->getRepository(Answer::class)->findOneBy([
+            'lesson' => $lesson,
+            'user' => $this->getUser(),
+        ]);
+
         return $this->render('lesson/show.html.twig', [
             'lesson' => $lesson,
             'themeId' => $themeId,
+            'answer' => $answer,
         ]);
     }
 

@@ -68,6 +68,9 @@
             {% if inf_msg is defined %}
                 <div style="color:red;">{{ inf_msg }}</div>
             {% endif %}
+                <div class="row m-2 p-2 lesson-row">
+                    <div class="col-md-12 lesson-head">Ваша отметка: <strong>{{ answer.mark|default('-') }}</strong></div>
+                </div>
             </div>
         {% endif %}
    </div> 
