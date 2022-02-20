@@ -435,12 +435,77 @@ a.link:hover {
 
 #frame{
     max-width: 500px;
-    max-height: 700px;
+    /* max-height: 700px; */
     transition: all .35s ease-in-out;
 }
 
 #frame:hover{
     max-width: 900px;
-    max-height: 1100px;
+    /* max-height: 1100px; */
     transition: all .35s ease-in-out;
+}
+
+@media (min-width: 762px) and (max-width: 990px) {
+	#frame{
+        max-width: 450px;
+        /* max-height: 500px; */
+    }
+    #frame:hover{
+        max-width: 450px;
+        /* max-height: 700px; */
+    }
+}
+
+@media (min-width: 500px) and (max-width: 762px) {
+	#frame{
+        max-width: 400px;
+        /* max-height: 740px; */
+    }
+    #frame:hover{
+        max-width: 450px;
+        /* max-height: 750px; */
+    }
+}
+
+@media (min-width: 348px) and (max-width: 500px) {
+	#frame{
+        max-width: 290px;
+        /* max-height: 740px; */
+    }
+    #frame:hover{
+        max-width: 290px;
+        /* max-height: 750px; */
+    }
+}
+
+@media (min-width: 100px) and (max-width: 348px) {
+	#frame{
+        max-width: 200px;
+        /* max-height: 740px; */
+    }
+    #frame:hover{
+        max-width: 200px;
+        /* max-height: 750px; */
+    }
+}
+
+@media (max-width: 991px) {
+	main.welcome{
+        padding: 50px 0 50px 0;
+    }
+}
+
+@media (max-width: 991px) {
+	.row.row-wrap{
+        padding: 0;
+    }
+}
+
+@media (max-width: 380px) {
+	main.row.welcome>div>h1{
+        font-size: 20px;
+    }
+    div.footer{
+        font-size: 13px;
+    }
 }
