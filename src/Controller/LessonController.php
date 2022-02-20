@@ -126,27 +126,42 @@ class LessonController extends AbstractController
      */
     public function sendAnswer(Request $request, Lesson $lesson, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
-        $uploaddir = '../public/images/uploads/';
-        $uploadfile = $uploaddir . Uuid::v4()->toRfc4122() . '-' . basename($_FILES['image']['name']);
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile) == false) {
-            $themeId = $lesson->getTheme()->getId();
-            return $this->render('lesson/show.html.twig', [
-                'lesson' => $lesson,
-                'themeId' => $themeId,
-                'inf_msg' => 'Произошла ошибка при отправке изображения.',
-            ]);
-        } 
+        
         date_default_timezone_set('Europe/Minsk');
 
-        $answer = new Answer();
-        $answer
-        -> setLesson($lesson)
-        -> setUser($this->getUser())
-        -> setPathImage($uploadfile)
-        -> setDate(new \DateTime());
+        $answer = $doctrine->getRepository(Answer::class)->findOneBy([
+            'lesson' => $lesson,
+            'user' => $this->getUser(),
+        ]);
 
-        $entityManager->persist($answer);
-        $entityManager->flush();
+        if (!$answer) {
+            $answer = new Answer();
+            $answer
+            -> setLesson($lesson)
+            -> setUser($this->getUser())
+            -> setPathImage($uploadfile)
+            -> setDate(new \DateTime());
+
+            $entityManager->persist($answer);
+            $entityManager->flush();
+        }
+        else{
+            $uploaddir = '../public/images/uploads/';
+            $uploadfile = $uploaddir . Uuid::v4()->toRfc4122() . '-' . basename($_FILES['image']['name']);
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile) == false) {
+                $themeId = $lesson->getTheme()->getId();
+                return $this->render('lesson/show.html.twig', [
+                    'lesson' => $lesson,
+                    'themeId' => $themeId,
+                    'inf_msg' => 'Произошла ошибка при отправке изображения.',
+                ]);
+            } 
+            unlink($uploadfile);
+            $answer->setPathImage($uploadfile)
+            ->setDate(new \DateTime())
+            ->setMark(null);
+            $entityManager->flush();
+        }
 
         return $this->redirectToRoute('lesson_show', [
             'id' => $lesson->getId(),
