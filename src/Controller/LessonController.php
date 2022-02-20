@@ -130,39 +130,6 @@ class LessonController extends AbstractController
                 'inf_msg' => 'Произошла ошибка при отправке изображения.',
             ]);
         } 
-        
-        
-        set_error_handler(function($errno, $errstr, $errfile, $errline) {
-            // error was suppressed with the @-operator
-            if (0 === error_reporting()) {
-                return false;
-            }
-            
-            throw new Exception('1',1);
-        });
-
-        
-
-        try{
-            $image = imagecreatefrompng($uploadfile); 
-            $bg = imagecreatetruecolor(imagesx($image), imagesy($image));
-            imagefill($bg, 0, 0, imagecolorallocate($bg, 255, 255, 255));
-            imagealphablending($bg, TRUE);
-            imagecopy($bg, $image, 0, 0, 0, 0, imagesx($image), imagesy($image));
-            imagedestroy($image);
-            $quality = 50; // 0 = worst / smaller file, 100 = better / bigger file 
-            imagejpeg($bg, $uploadfile . ".jpg", $quality);
-            imagedestroy($bg);
-            unlink($uploadfile);
-            $uploadfile = $uploadfile . ".jpg";
-        }
-        catch(Exception $e)
-        {
-            return $this->redirectToRoute('lesson_show', ['id' => $lesson->getId()]);
-        }
-        
-        restore_error_handler();
-
         date_default_timezone_set('Europe/Minsk');
 
         $answer = new Answer();
