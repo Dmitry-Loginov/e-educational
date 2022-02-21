@@ -15,6 +15,7 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @Route("/answer")
+ * @IsGranted("ROLE_TEACHER")
  * 
  */
 class AnswerController extends AbstractController
