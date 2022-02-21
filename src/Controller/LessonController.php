@@ -133,48 +133,68 @@ class LessonController extends AbstractController
         ]);
 
         if (!$answer) {
-
-            $uniqName = Uuid::v4()->toRfc4122() . '-' . basename($_FILES['image']['name']);
-            $uploadfile = '../public/images/uploads/' . $uniqName;
-            $pathImage = '/images/uploads/' . $uniqName;
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile) == false) {
-                $themeId = $lesson->getTheme()->getId();
-                return $this->render('lesson/show.html.twig', [
-                    'lesson' => $lesson,
-                    'themeId' => $themeId,
-                    'inf_msg' => 'Произошла ошибка при отправке изображения.',
-                ]);
+            
+            $answer = new Answer();
+            $pathImage = "";
+            $good_name = array_filter($_FILES['image']);
+            if (sizeof($good_name) > 1){
+                $uniqName = Uuid::v4()->toRfc4122() . '-' . basename($_FILES['image']['name']);
+                $uploadfile = '../public/images/uploads/' . $uniqName;
+                $pathImage = '/images/uploads/' . $uniqName;
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile) == false) {
+                    $themeId = $lesson->getTheme()->getId();
+                    return $this->render('lesson/show.html.twig', [
+                        'lesson' => $lesson,
+                        'themeId' => $themeId,
+                        'inf_msg' => 'Произошла ошибка при отправке изображения.',
+                    ]);
+                }
             }
 
-            $answer = new Answer();
             $answer
             -> setLesson($lesson)
             -> setUser($this->getUser())
-            -> setPathImage($pathImage)
+            ->setCommentStudent($_POST['commentStudent'])
             -> setDate(new \DateTime());
+
+            if($pathImage != ""){
+                $answer->setPathImage($pathImage);
+            }
 
             $entityManager->persist($answer);
             $entityManager->flush();
         }
         else{
-            
-            $uniqName = Uuid::v4()->toRfc4122() . '-' . basename($_FILES['image']['name']);
-            $uploadfile = '../public/images/uploads/' . $uniqName;
-            $pathImage = '/images/uploads/' . $uniqName;
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile) == false) {
-                $themeId = $lesson->getTheme()->getId();
-                return $this->render('lesson/show.html.twig', [
-                    'lesson' => $lesson,
-                    'themeId' => $themeId,
-                    'inf_msg' => 'Произошла ошибка при отправке изображения.',
-                ]);
+
+            $pathImage = "";
+            $good_name = array_filter($_FILES['image']);
+            if (sizeof($good_name) > 1){
+                $uniqName = Uuid::v4()->toRfc4122() . '-' . basename($_FILES['image']['name']);
+                $uploadfile = '../public/images/uploads/' . $uniqName;
+                $pathImage = '/images/uploads/' . $uniqName;
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile) == false) {
+                    $themeId = $lesson->getTheme()->getId();
+                    return $this->render('lesson/show.html.twig', [
+                        'lesson' => $lesson,
+                        'themeId' => $themeId,
+                        'inf_msg' => 'Произошла ошибка при отправке изображения.',
+                    ]);
+                }
             }
 
             $oldImage = '../public' . $answer->getPathImage();
-            unlink($oldImage);
-            $answer->setPathImage($pathImage)
+            if($oldImage != "../public" and $pathImage != ""){
+                unlink($oldImage);
+            }
+            $answer
+            ->setCommentStudent($_POST['commentStudent'])
             ->setDate(new \DateTime())
             ->setMark(null);
+
+
+            if($pathImage != ""){
+                $answer->setPathImage($pathImage);
+            }
             $entityManager->flush();
         }
 

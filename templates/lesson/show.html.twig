@@ -60,7 +60,10 @@
             <div class="row m-2 p-2 lesson-row">
                 <div class="col-md-12 lesson-head">Отправить работу</div>
                 <form enctype="multipart/form-data" name="sendImage" method="post" accept="image/*" action="{{ path('send_image', {'id': lesson.id}) }}">
-                    <input class="form-control" type="file" id="image" name="image" onchange="preview()">
+                    <label for="commentStudent" class="form-label mb-0">Комментарий</label>
+                    <textarea name="commentStudent" id="commentStudent" class="form-control"></textarea>
+                    <label for="image" class="form-label mt-2 mb-0">Изображение</label>
+                    <input class="form-control" type="file" id="image" name="image" onchange="preview()" class="mt-0">
                     <button onclick="clearImage()" class="btn btn-primary mt-3">Отправить</button>
                 </form>
                 </div>
@@ -68,12 +71,21 @@
             {% if inf_msg is defined %}
                 <div style="color:red;">{{ inf_msg }}</div>
             {% endif %}
+            
                 <div class="row m-2 p-2 lesson-row">
                     <div class="col-md-12 lesson-head">Ваша отметка: <strong>{{ answer.mark|default('-') }}</strong></div>
+                </div>
+
+                <div class="row m-2 p-2 lesson-row">
+                   <div class="col-md-12 lesson-head">Ваш Комментарий</div>
+                    <div class="col-md-auto lesson-text">{{ answer.commentStudent|default('') }}</div>
+                </div>
+                <div class="row m-2 p-2 lesson-row">
+                   <div class="col-md-12 lesson-head">Комментарий преподавателя</div>
+                    <div class="col-md-auto lesson-text">{{ answer.commentTeacher|default('') }}</div>
                 </div>
             </div>
         {% endif %}
    </div> 
 
-    
 {% endblock %}
