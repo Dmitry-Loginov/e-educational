@@ -45,11 +45,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=8)
-     */
-    private $groupName;
-
-    /**
      * @ORM\OneToMany(targetEntity=Theme::class, mappedBy="user", orphanRemoval=true)
      */
     private $themes;
@@ -168,18 +163,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getGroupName(): ?string
-    {
-        return $this->groupName;
-    }
-
-    public function setGroupName(string $groupName): self
-    {
-        $this->groupName = $groupName;
 
         return $this;
     }
