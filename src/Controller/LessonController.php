@@ -137,6 +137,7 @@ class LessonController extends AbstractController
             $answer = new Answer();
             $pathImage = "";
             $good_name = array_filter($_FILES['image']);
+
             if (sizeof($good_name) > 1){
                 $uniqName = Uuid::v4()->toRfc4122() . '-' . basename($_FILES['image']['name']);
                 $uploadfile = '../public/images/uploads/' . $uniqName;
@@ -168,6 +169,7 @@ class LessonController extends AbstractController
 
             $pathImage = "";
             $good_name = array_filter($_FILES['image']);
+
             if (sizeof($good_name) > 1){
                 $uniqName = Uuid::v4()->toRfc4122() . '-' . basename($_FILES['image']['name']);
                 $uploadfile = '../public/images/uploads/' . $uniqName;
@@ -183,9 +185,9 @@ class LessonController extends AbstractController
             }
 
             $oldImage = '../public' . $answer->getPathImage();
-            // if($oldImage != "../public" and $pathImage != ""){
-            //     unlink($oldImage);
-            // }
+            if($oldImage != "../public" and $pathImage != ""){
+                unlink($oldImage);
+            }
             $answer
             ->setCommentStudent($_POST['commentStudent'])
             ->setDate(new \DateTime())
