@@ -11,14 +11,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @Route("/answer")
+ * 
  */
 class AnswerController extends AbstractController
 {
     /**
      * @Route("/", name="answer_index", methods={"GET"})
+     * @IsGranted("ROLE_TEACHER")
      */
     public function index(AnswerRepository $answerRepository): Response
     {
@@ -28,59 +31,32 @@ class AnswerController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="answer_new", methods={"GET", "POST"})
+     * @Route("/{id}/edit", name="answer_edit", methods={"GET"})
+     * @IsGranted("ROLE_STUDENT")
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function edit(Answer $answer): Response
     {
-        $answer = new Answer();
-        $form = $this->createForm(AnswerType::class, $answer);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($answer);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('answer_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('answer/new.html.twig', [
-            'answer' => $answer,
-            'form' => $form,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="answer_show", methods={"GET"})
-     */
-    public function show(Answer $answer): Response
-    {
-        return $this->render('answer/show.html.twig', [
-            'answer' => $answer,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/edit", name="answer_edit", methods={"GET", "POST"})
-     */
-    public function edit(Request $request, Answer $answer, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(AnswerType::class, $answer);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('answer_index', [], Response::HTTP_SEE_OTHER);
-        }
-
         return $this->renderForm('answer/edit.html.twig', [
             'answer' => $answer,
-            'form' => $form,
         ]);
+    }
+
+    /**
+     * @Route("/{id}", name="set_mark", methods={"POST"})
+     */
+    public function SetMark(ManagerRegistry $doctrine, int $id): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $answer = $entityManager->getRepository(Answer::class)->find($id);
+        $mark = $_POST['mark'];
+        $answer->setMark($mark);
+        $entityManager->flush();
+        return $this->redirectToRoute('answer_edit', ['id' => $id]);
     }
 
     /**
      * @Route("/{id}", name="answer_delete", methods={"POST"})
+     * @IsGranted("ROLE_STUDENT")
      */
     public function delete(Request $request, Answer $answer, EntityManagerInterface $entityManager): Response
     {

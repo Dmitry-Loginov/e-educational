@@ -35,6 +35,11 @@
                             <a href={{ path( 'admin_index') }} class="nav-link">Пользователи</a>
                         </li>
                         {% endif %}
+                        {% if is_granted('ROLE_TEACHER') %}
+                        <li class="nav-item">
+                            <a href={{ path( 'answer_index') }} class="nav-link">Ответы</a>
+                        </li>
+                        {% endif %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Авторизация

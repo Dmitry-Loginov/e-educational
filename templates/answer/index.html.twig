@@ -1,39 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Answer index{% endblock %}
+{% block title %}Ответы{% endblock %}
 
 {% block body %}
-    <h1>Answer index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>PathImage</th>
-                <th>Date</th>
-                <th>Mark</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="container lesson-container">
+    <h1>Ответы</h1>
         {% for answer in answers %}
-            <tr>
-                <td>{{ answer.id }}</td>
-                <td>{{ answer.pathImage }}</td>
-                <td>{{ answer.date ? answer.date|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ answer.mark }}</td>
-                <td>
-                    <a href="{{ path('answer_show', {'id': answer.id}) }}">show</a>
-                    <a href="{{ path('answer_edit', {'id': answer.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
+        <div class="row m-2 mt-3 p-2 lesson-row">
+            <div class="col-md lesson-head p-2 text-break">{{ answer.lesson }}</div>
+            <div class="col-md lesson-head p-2 text-break">{{ answer.user.name }}</div>
+            <a href="{{ path('answer_edit', {'id': answer.id}) }}" class="col-md p-2 changeRole">просмотр</a>
+        </div>
         {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('answer_new') }}">Create new</a>
+    </div>
 {% endblock %}

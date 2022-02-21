@@ -26,6 +26,7 @@ class AdminController extends AbstractController
             'users' => $userRepository->findAll(),
         ]);
     }
+    
     /**
      * @Route("/{id}", name="admin_edit", methods={"GET"})
      */

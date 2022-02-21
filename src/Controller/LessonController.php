@@ -126,28 +126,17 @@ class LessonController extends AbstractController
      */
     public function sendAnswer(Request $request, Lesson $lesson, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
-        
         date_default_timezone_set('Europe/Minsk');
-
         $answer = $doctrine->getRepository(Answer::class)->findOneBy([
             'lesson' => $lesson,
             'user' => $this->getUser(),
         ]);
 
         if (!$answer) {
-            $answer = new Answer();
-            $answer
-            -> setLesson($lesson)
-            -> setUser($this->getUser())
-            -> setPathImage($uploadfile)
-            -> setDate(new \DateTime());
 
-            $entityManager->persist($answer);
-            $entityManager->flush();
-        }
-        else{
-            $uploaddir = '../public/images/uploads/';
-            $uploadfile = $uploaddir . Uuid::v4()->toRfc4122() . '-' . basename($_FILES['image']['name']);
+            $uniqName = Uuid::v4()->toRfc4122() . '-' . basename($_FILES['image']['name']);
+            $uploadfile = '../public/images/uploads/' . $uniqName;
+            $pathImage = '/images/uploads/' . $uniqName;
             if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile) == false) {
                 $themeId = $lesson->getTheme()->getId();
                 return $this->render('lesson/show.html.twig', [
@@ -155,9 +144,34 @@ class LessonController extends AbstractController
                     'themeId' => $themeId,
                     'inf_msg' => 'Произошла ошибка при отправке изображения.',
                 ]);
-            } 
-            unlink($uploadfile);
-            $answer->setPathImage($uploadfile)
+            }
+
+            $answer = new Answer();
+            $answer
+            -> setLesson($lesson)
+            -> setUser($this->getUser())
+            -> setPathImage($pathImage)
+            -> setDate(new \DateTime());
+
+            $entityManager->persist($answer);
+            $entityManager->flush();
+        }
+        else{
+            $uniqName = Uuid::v4()->toRfc4122() . '-' . basename($_FILES['image']['name']);
+            $uploadfile = '../public/images/uploads/' . $uniqName;
+            $pathImage = '/images/uploads/' . $uniqName;
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile) == false) {
+                $themeId = $lesson->getTheme()->getId();
+                return $this->render('lesson/show.html.twig', [
+                    'lesson' => $lesson,
+                    'themeId' => $themeId,
+                    'inf_msg' => 'Произошла ошибка при отправке изображения.',
+                ]);
+            }
+
+            $oldImage = '../public' . $answer->getPathImage();
+            unlink($oldImage);
+            $answer->setPathImage($pathImage)
             ->setDate(new \DateTime())
             ->setMark(null);
             $entityManager->flush();
