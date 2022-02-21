@@ -32,13 +32,20 @@
         {% if is_granted('ROLE_TEACHER') %} 
             <div class="row m-2 p-2 lesson-row">
                 <div class="col-md-12 lesson-head">Отметка</div>
-                <form name="sendImage" method="post" action="{{ path('set_mark', {'id': answer.id}) }}">
+                <form name="sendResponseTeacher" method="post" action="{{ path('set_teacher_response', {'id': answer.id}) }}">
+                    <label for="commentTeacher" class="form-label mb-0">Ваш комментарий</label>
+                    <textarea name="commentTeacher" id="commentTeacher" class="form-control">{{answer.commentTeacher|default('')}}</textarea>
+                    <label for="mark" class="form-label mb-0">Отметка</label>
                     <input class="form-control" type="input" id="mark" name="mark" value="{{answer.mark}}">
                     <button class="btn btn-primary mt-3">Оценить</button>
                 </form>
                 </div>
             </div>
         {% endif %}
+        <div class="row m-2 p-2 lesson-row">
+            <div class="col-md-12 lesson-head">Комментарий учащегося</div>
+            <div class="col-md-auto lesson-text">{{ answer.commentStudent|default('') }}</div>
+        </div>
     </div>
 
 {% endblock %}

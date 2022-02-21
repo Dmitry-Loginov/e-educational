@@ -42,14 +42,16 @@ class AnswerController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="set_mark", methods={"POST"})
+     * @Route("/{id}", name="set_teacher_response", methods={"POST"})
      */
     public function SetMark(ManagerRegistry $doctrine, int $id): Response
     {
         $entityManager = $doctrine->getManager();
         $answer = $entityManager->getRepository(Answer::class)->find($id);
         $mark = $_POST['mark'];
+        $comment = $_POST['commentTeacher'];
         $answer->setMark($mark);
+        $answer->setCommentTeacher($comment);
         $entityManager->flush();
         return $this->redirectToRoute('answer_edit', ['id' => $id]);
     }
