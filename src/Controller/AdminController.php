@@ -26,7 +26,7 @@ class AdminController extends AbstractController
             'users' => $userRepository->findAll(),
         ]);
     }
-    
+
     /**
      * @Route("/{id}", name="admin_edit", methods={"GET"})
      */
@@ -41,14 +41,16 @@ class AdminController extends AbstractController
         ]);
     }
     /**
-     * @Route("/{id}", name="set_user_role", methods={"POST"})
+     * @Route("/{id}", name="edit_user", methods={"POST"})
      */
     public function SetUserRole(ManagerRegistry $doctrine, int $id): RedirectResponse
     {
         $entityManager = $doctrine->getManager();
         $user = $entityManager->getRepository(User::class)->find($id);
-        $role[] = $_POST['rolesForm'];
-        $user->setRoles($role);
+
+        $user->setRoles([$_POST['role']])
+            ->setEmail($_POST['email'])
+            ->setName($_POST['name']);
         $entityManager->flush();
         return $this->redirectToRoute('admin_edit', ['id' => $id]);
     }

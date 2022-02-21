@@ -157,6 +157,7 @@ class LessonController extends AbstractController
             $entityManager->flush();
         }
         else{
+            
             $uniqName = Uuid::v4()->toRfc4122() . '-' . basename($_FILES['image']['name']);
             $uploadfile = '../public/images/uploads/' . $uniqName;
             $pathImage = '/images/uploads/' . $uniqName;

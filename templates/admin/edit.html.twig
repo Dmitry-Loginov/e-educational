@@ -20,15 +20,26 @@
                 <div class="col-md-auto lesson-text text-break">{{ user.password }}</div>
         </div>
 
-        <form id="saveUser" method="post" action="{{ path('set_user_role', {'id' : user.id}) }}">
-            <p>Роль</p>
-            <select class="form-select" name="rolesForm">
+        <form class="row m-2 mt-3 p-2 lesson-row" id="saveUser" method="post" action="{{ path('edit_user', {'id' : user.id}) }}">
+           <div class="col-md-3 lesson-head">Права доступа</div>
+           <div>
+                <select class="form-select col-md-auto lesson-text text-break" id="role" name="role">
                 {% for role in roles %}
                     <option value = "{{role}}">{{role}}</option>
                 {% endfor %}
-            </select>
-            <br>
-            <input type="submit" class="btn btn-primary" value="{{button_label|default('Сохранить') }}">
+                </select>
+            </div>            
+
+           <div>
+           <div class="col-md-2 lesson-head">email</div>
+                <input class="form-control col-md-auto lesson-text text-break" type="input" id="email" name="email" value="{{user.email}}">
+           </div>
+
+           <div>
+           <div class="col-md-2 lesson-head">Имя</div>
+            <input class="form-control col-md-auto lesson-text text-break" type="input" id="name" name="name" value="{{user.name}}">
+            </div>
+            <input type="submit" class="btn btn-primary mt-2" value="{{button_label|default('Сохранить') }}">
         </form>
     </div>
         

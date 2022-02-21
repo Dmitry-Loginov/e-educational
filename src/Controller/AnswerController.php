@@ -60,6 +60,8 @@ class AnswerController extends AbstractController
      */
     public function delete(Request $request, Answer $answer, EntityManagerInterface $entityManager): Response
     {
+        $oldImage = '../public' . $answer->getPathImage();
+        unlink($oldImage);
         if ($this->isCsrfTokenValid('delete'.$answer->getId(), $request->request->get('_token'))) {
             $entityManager->remove($answer);
             $entityManager->flush();

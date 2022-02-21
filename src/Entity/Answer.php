@@ -47,6 +47,16 @@ class Answer
      */
     private $mark;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $commentStudent;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $commentTeacher;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -108,6 +118,30 @@ class Answer
     public function setMark(?int $mark): self
     {
         $this->mark = $mark;
+
+        return $this;
+    }
+
+    public function getCommentStudent(): ?string
+    {
+        return $this->commentStudent;
+    }
+
+    public function setCommentStudent(?string $commentStudent): self
+    {
+        $this->commentStudent = $commentStudent;
+
+        return $this;
+    }
+
+    public function getCommentTeacher(): ?string
+    {
+        return $this->commentTeacher;
+    }
+
+    public function setCommentTeacher(?string $commentTeacher): self
+    {
+        $this->commentTeacher = $commentTeacher;
 
         return $this;
     }
