@@ -55,11 +55,6 @@ class Lesson
     private $test;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $mark;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Theme::class, inversedBy="lessons")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -165,18 +160,6 @@ class Lesson
     public function setTest(?string $test): self
     {
         $this->test = $test;
-
-        return $this;
-    }
-
-    public function getMark(): ?int
-    {
-        return $this->mark;
-    }
-
-    public function setMark(?int $mark): self
-    {
-        $this->mark = $mark;
 
         return $this;
     }
