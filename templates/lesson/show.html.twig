@@ -42,6 +42,7 @@
             <div class="col-md-12 lesson-head">Видеоурок</div>
             <div class="col-md-12 lesson-text">{{ lesson.video|raw }}</div>
         </div>
+        {% if is_granted('ROLE_STUDENT') %} 
         <div class="accordion accordion-flush" id="accordionTest">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
@@ -56,7 +57,6 @@
                 </div>
             </div>
         </div>
-        {% if is_granted('ROLE_STUDENT') %} 
             <div class="row m-2 p-2 lesson-row">
                 <div class="col-md-12 lesson-head">Отправить работу</div>
                 <form enctype="multipart/form-data" name="sendImage" method="post" accept="image/*" action="{{ path('send_image', {'id': lesson.id}) }}">
