@@ -184,19 +184,20 @@ class LessonController extends AbstractController
                 }
             }
 
+            $answer
+            ->setCommentStudent($_POST['commentStudent'])
+            ->setDate(new \DateTime());
+
             $oldImage = '../public' . $answer->getPathImage();
             if($oldImage != "../public" and $pathImage != ""){
                 unlink($oldImage);
             }
-            $answer
-            ->setCommentStudent($_POST['commentStudent'])
-            ->setDate(new \DateTime())
-            ->setMark(null);
-
-
+            
             if($pathImage != ""){
+                $answer->setMark(null);
                 $answer->setPathImage($pathImage);
             }
+
             $entityManager->flush();
         }
 
