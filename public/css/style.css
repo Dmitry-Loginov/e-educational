@@ -1,6 +1,6 @@
-*{font-family: 'Futura Pt';}
+*{font-family:Verdana, Geneva, Tahoma, sans-serif;}
 .bg-user {
-    background-color: rgb(132, 38, 38);
+    background-color: rgb(96, 27, 27);
 }
 
 .nav-link {
@@ -39,7 +39,7 @@ h2.display-6 {
 }
 
 .welcome {
-    border: 5px solid rgb(132, 38, 38);
+    border: 5px solid rgb(96, 27, 27);
     border-radius: 10px;
     max-width: 1200px;
     text-align: center;
@@ -62,16 +62,16 @@ h2.display-6 {
 }
 
 .text-welcome {
-    border: 1px solid rgb(132, 38, 38);
+    border: 1px solid rgb(96, 27, 27);
     text-align: justify;
     padding: 5px;
     border-radius: 2px;
     color: white;
-    background-color: #842626;
+    background-color: rgb(96, 27, 27);
 }
 
 .auth {
-    border: 1px solid rgb(132, 38, 38);
+    border: 1px solid rgb(96, 27, 27);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,13 +89,13 @@ body {
 
 .auth>a {
     border-radius: 0px;
-    background-color: rgb(132, 38, 38);
-    border-color: rgb(132, 38, 38);
+    background-color: rgb(96, 27, 27);
+    border-color: rgb(96, 27, 27);
 }
 
 .footer {
     width: 100%;
-    background-color: #842626;
+    background-color: rgb(96, 27, 27);
     color: white;
 }
 
@@ -106,7 +106,7 @@ body {
 
 .form-control {
     border-radius: 0;
-    border-color: rgb(132, 38, 38);
+    border-color: rgb(96, 27, 27);
     font-size: 15px;
     padding: 10px;
     box-sizing: border-box;
@@ -115,22 +115,22 @@ body {
 .btn-primary {
     width: 100%;
     border-radius: 0;
-    background-color: rgb(132, 38, 38);
-    border-color: rgb(132, 38, 38);
+    background-color: rgb(96, 27, 27);
+    border-color: rgb(96, 27, 27);
 }
 
 .btn-primary:hover,
 .btn-primary:focus {
     border-radius: 0px;
     background-color: white;
-    border-color: rgb(132, 38, 38);
-    color: rgb(132, 38, 38);
+    border-color: rgb(96, 27, 27);
+    color: rgb(96, 27, 27);
 }
 
 .form-in {
     margin-top: 7%;
     width: 400px;
-    border: 1px solid rgb(132, 38, 38);
+    border: 1px solid rgb(96, 27, 27);
     background-color: whitesmoke;
     padding: 10px;
     border-width: medium;
@@ -141,7 +141,7 @@ body {
 }
 
 .form-create {
-    border: 1px solid rgb(132, 38, 38);
+    border: 1px solid rgb(96, 27, 27);
     background-color: whitesmoke;
     padding: 10px;
     border-width: thin;
@@ -183,7 +183,7 @@ label {
     display: inline-block;
     width: 25px;
     height: 25px;
-    border: 1px solid rgb(132, 38, 38);
+    border: 1px solid rgb(96, 27, 27);
     background-color: #fff;
     z-index: 1;
     transition: background .1s linear, border .1s linear;
@@ -198,8 +198,8 @@ label {
 .checkbox__input:checked+.checkbox__label:before {
     background: url("https://htmlbase.ru/storage/app/media/checkbox/check.svg") no-repeat;
     background-size: 22px 22px;
-    background-color: rgb(132, 38, 38);
-    border-color: rgb(132, 38, 38);
+    background-color: rgb(96, 27, 27);
+    border-color: rgb(96, 27, 27);
 }
 
 .form-row {
@@ -219,8 +219,8 @@ h3 {
 }
 
 .head-row {
-    border-bottom: 2px solid #842626;
-    background-color: #842626;
+    border-bottom: 2px solid rgb(96, 27, 27);
+    background-color: rgb(96, 27, 27);
     color: whitesmoke;
 }
 
@@ -229,7 +229,7 @@ tr {
 }
 
 a {
-    color: #842626;
+    color: rgb(96, 27, 27);
 }
 
 tbody,
@@ -272,7 +272,7 @@ tr {
 .form-control:focus {
     color: #212529;
     background-color: #fff;
-    border-color: #842626;
+    border-color: rgb(96, 27, 27);
     outline: 0;
     box-shadow: 0 0 0 0.25rem rgb(132 38 38 / 25%);
 }
@@ -291,7 +291,7 @@ tr {
 }
 
 .create-lesson {
-    background-color: #842626;
+    background-color: rgb(96, 27, 27);
     color: white;
     text-align: center;
 }
@@ -299,9 +299,9 @@ tr {
 .create-lesson:focus,
 .create-lesson:hover {
     background-color: white;
-    color: #842626;
+    color: rgb(96, 27, 27);
     text-align: center;
-    border: 1px solid #842626;
+    border: 1px solid rgb(96, 27, 27);
 }
 
 .dropdown-item.active,
@@ -325,7 +325,7 @@ tr {
 }
 
 .form-select:focus {
-    border-color: #842626;
+    border-color: rgb(96, 27, 27);
     outline: 0;
     box-shadow: 0 0 0 0.25rem rgb(132 38 38 / 25%);
 }
@@ -335,7 +335,7 @@ tr {
 }
 
 .bordo {
-    color: #842626;
+    color: rgb(96, 27, 27);
 }
 
 .black {
@@ -353,14 +353,14 @@ a.link {
     text-align: center;
     text-decoration: none;
     padding: 10px;
-    background-color: #842626;
+    background-color: rgb(96, 27, 27);
     color: #fdfffc;
     font-weight: 600;
 }
 
 a.link:hover {
-    border: 1px solid #842626;
-    color: #842626;
+    border: 1px solid rgb(96, 27, 27);
+    color: rgb(96, 27, 27);
     background-color: white;
     font-weight: 600;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border .15s ease-in-out;
@@ -380,14 +380,14 @@ a.link:hover {
 .back:hover{color: white;}
 
 .lesson-row {
-    border: 1px solid #842626;
+    border: 1px solid rgb(96, 27, 27);
     color: black;
     background-color: white;
 }
 
 .lesson-container {
     background-color: whitesmoke;
-    border: 2px solid #842626;
+    border: 2px solid rgb(96, 27, 27);
     padding-bottom: 8px;
 }
 
@@ -401,7 +401,7 @@ a.link:hover {
 }
 
 .changeRole {
-    background-color: #842626;
+    background-color: rgb(96, 27, 27);
     color: white;
     text-decoration: none;
     width: min-content;
@@ -410,9 +410,9 @@ a.link:hover {
 
 .changeRole:hover,
 .changeRole:focus {
-    border: 1px solid #842626;
+    border: 1px solid rgb(96, 27, 27);
     background-color: white;
-    color: #842626;
+    color: rgb(96, 27, 27);
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border .15s ease-in-out;
 }
 
@@ -428,7 +428,7 @@ a.link:hover {
 }
 
 #accordionTheory, #accordionTest{
-    border: 1px solid #842626;
+    border: 1px solid rgb(96, 27, 27);
     margin: 0px 8px 0px 8px;
     box-sizing: border-box;
 }
