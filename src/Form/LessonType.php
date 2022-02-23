@@ -16,7 +16,7 @@ class LessonType extends AbstractType
         $builder
             ->add('name', TextType::class, ['label' => 'Название'])
             ->add('target', TextType::class, ['label' => 'Цель'])
-            ->add('task', TextType::class, ['label' => 'Задача'])
+            ->add('task', TextType::class, ['label' => 'Конечный результат'])
             ->add('instrumentation', TextType::class, ['label' => 'Инструменты и матеиалы'])
             ->add('theory', TextareaType::class, [
                 'label' => 'Теоретический материал',
