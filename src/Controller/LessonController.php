@@ -189,8 +189,12 @@ class LessonController extends AbstractController
             ->setDate(new \DateTime());
 
             $oldImage = '../public' . $answer->getPathImage();
-            if($oldImage != "../public" and $pathImage != ""){
-                unlink($oldImage);
+            try {
+                if($oldImage != "../public" and $pathImage != ""){
+                    unlink($oldImage);
+                }
+            } catch (Exception $e) {
+                echo('###################');
             }
             
             if($pathImage != ""){
