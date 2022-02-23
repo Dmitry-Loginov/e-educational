@@ -81,7 +81,7 @@ h2.display-6 {
 }
 
 body {
-    background-image: url('../images/b.jpg');
+    background-image: url('../images/background.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
