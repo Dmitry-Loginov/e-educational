@@ -88,7 +88,7 @@ class Answer
 
     public function getPathImage(): ?string
     {
-        return $this->pathImage;
+        return '../..' . $this->pathImage;
     }
 
     public function setPathImage(string $pathImage): self
