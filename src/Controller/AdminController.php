@@ -28,7 +28,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="admin_edit", methods={"GET"})
+     * @Route("/{id}", name="admin_edit", methods={"GET"}, requirements={"id"="\d+"})
      */
     public function edit(User $user): Response
     {
@@ -40,8 +40,9 @@ class AdminController extends AbstractController
             'button_label' => 'Сохранить',
         ]);
     }
+    
     /**
-     * @Route("/{id}", name="edit_user", methods={"POST"})
+     * @Route("/{id}", name="edit_user", methods={"POST"}, requirements={"id"="\d+"})
      */
     public function SetUserRole(ManagerRegistry $doctrine, int $id): RedirectResponse
     {

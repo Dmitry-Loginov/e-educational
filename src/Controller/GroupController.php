@@ -37,7 +37,7 @@ class GroupController extends AbstractController
             return $this->redirectToRoute('group_index');
         }
 
-        return $this->render('group/new.html.twig', ['form' => $form]);
+        return $this->render('group/new.html.twig', ['form' => $form->createView()]);
     }
 
     /** @Route("/{id}/delete", name="group_delete") */
