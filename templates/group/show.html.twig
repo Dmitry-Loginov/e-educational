@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block title %}Просмотр группы{% endblock %}
+{% block body %}
+<h1>Группа "{{ group.name }}"</h1>
+
+<h3>Пользователи в группе:</h3>
+<ul>
+{% for utg in group.userToGroups %}
+    <li>{{ utg.user.email }}</li>
+{% else %}
+    <li>Пока нет пользователей</li>
+{% endfor %}
+</ul>
+
+<a href="{{ path('group_index') }}" class="btn btn-link mt-3">← Назад</a>
+{% endblock %}

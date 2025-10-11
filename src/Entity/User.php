@@ -54,6 +54,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $answers;
 
+    /** @ORM\OneToMany(targetEntity=UserToGroup::class, mappedBy="user", orphanRemoval=true) */
+    private $userToGroups;
+
     public function __construct()
     {
         $this->themes = new ArrayCollection();

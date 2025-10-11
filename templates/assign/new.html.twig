@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block title %}Новое назначение{% endblock %}
+{% block body %}
+<h1>Назначить пользователя в группу</h1>
+
+{{ form_start(form) }}
+    {{ form_row(form.user) }}
+    {{ form_row(form.group) }}
+    <button class="btn btn-success">Сохранить</button>
+{{ form_end(form) }}
+
+<a href="{{ path('assign_index') }}" class="btn btn-link mt-3">← Назад</a>
+{% endblock %}

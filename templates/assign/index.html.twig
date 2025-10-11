@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block title %}Назначения пользователей{% endblock %}
+{% block body %}
+<h1>Пользователи и их группы</h1>
+
+<a href="{{ path('assign_new') }}" class="btn btn-primary">Добавить назначение</a>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Пользователь</th>
+            <th>Группа</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for item in assignments %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.user.email }}</td>
+            <td>{{ item.group.name }}</td>
+            <td>
+                <a href="{{ path('assign_show', {id: item.id}) }}" class="btn btn-sm btn-secondary">Просмотр</a>
+                <a href="{{ path('assign_edit', {id: item.id}) }}" class="btn btn-sm btn-warning">Изменить</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr><td colspan="4">Назначения отсутствуют</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

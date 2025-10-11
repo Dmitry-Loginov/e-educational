@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block title %}Просмотр назначения{% endblock %}
+{% block body %}
+<h1>Назначение №{{ assignment.id }}</h1>
+
+<p><strong>Пользователь:</strong> {{ assignment.user.email }}</p>
+<p><strong>Группа:</strong> {{ assignment.group.name }}</p>
+
+<a href="{{ path('assign_index') }}" class="btn btn-link mt-3">← Назад</a>
+{% endblock %}
