@@ -6,6 +6,7 @@ use App\Repository\ThemeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Group as UserGroup;
 
 /**
  * @ORM\Entity(repositoryClass=ThemeRepository::class)
@@ -31,9 +32,27 @@ class Theme
     private $user;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Group::class, inversedBy="themes")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $group;
+
+    /**
      * @ORM\OneToMany(targetEntity=Lesson::class, mappedBy="theme", orphanRemoval=true)
      */
     private $lessons;
+
+    public function getGroup(): ?Group
+    {
+        return $this->group;
+    }
+
+    public function setGroup(?Group $group): self
+    {
+        $this->group = $group;
+
+        return $this;
+    }
 
     public function __construct()
     {

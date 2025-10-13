@@ -3,15 +3,21 @@
 namespace App\Controller;
 
 use App\Entity\Theme;
+use App\Entity\Group;
 use App\Form\ThemeType;
+use App\Form\GroupType;
 use App\Repository\ThemeRepository;
+use App\Repository\GroupRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * @Route("/theme")
@@ -87,5 +93,37 @@ class ThemeController extends AbstractController
         }
 
         return $this->redirectToRoute('theme_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/group/theme/new/{groupId}", name="theme_new_for_group", methods={"GET", "POST"})
+     * @IsGranted("ROLE_TEACHER")
+     */
+    public function newForGroup(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine, $groupId=false): Response
+    {
+        if ($groupId === false) {
+            throw $this->createNotFoundException('Группа не найдена');
+        }
+
+        $theme = new Theme();
+        $group = $doctrine->getRepository(Group::class)->find($groupId);
+        $user = $this->getUser();
+        $theme->setGroup($group);
+        $theme->setUser($user);
+
+        $form = $this->createForm(ThemeType::class, $theme);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($theme);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('group_themes', ['id' => $group->getId()]);
+        }
+
+        return $this->render('theme/new.html.twig', [
+            'theme' => $theme,
+            'form' => $form->createView(),
+        ]);
     }
 }

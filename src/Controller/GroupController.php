@@ -7,10 +7,15 @@ use App\Repository\GroupRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use App\Repository\ThemeRepository;
 
 /**
- * @Route("/admin/group")
+ * @Route("/group")
  */
 class GroupController extends AbstractController
 {
@@ -73,5 +78,16 @@ class GroupController extends AbstractController
             return $this->redirectToRoute('group_index');
         }
         return $this->render('group/edit.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/group/{id}/themes", name="group_themes", methods={"GET"})
+     */
+    public function themes(Group $group, ThemeRepository $themeRepository): Response
+    {
+        return $this->render('group/themes.html.twig', [
+            'group' => $group,
+            'themes' => $group->getThemes(),
+        ]);
     }
 }

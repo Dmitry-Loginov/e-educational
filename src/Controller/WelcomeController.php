@@ -13,6 +13,6 @@ class WelcomeController extends AbstractController
     */
     public function index(): Response
     {
-        return is_null($this->getUser()) ? $this->render('welcome/index.html.twig') : $this->redirectToRoute('theme_index');
+        return is_null($this->getUser()) ? $this->render('welcome/index.html.twig') : $this->redirectToRoute('group_index');
     }
 }
