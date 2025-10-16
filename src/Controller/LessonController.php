@@ -135,13 +135,13 @@ class LessonController extends AbstractController
         if (!$answer) {
             
             $answer = new Answer();
-            $pathImage = "";
+            $answerFlePath = "";
             $good_name = array_filter($_FILES['image']);
 
             if (sizeof($good_name) > 1){
                 $uniqName = Uuid::v4()->toRfc4122() . '-' . basename($_FILES['image']['name']);
                 $uploadfile = '../public/images/uploads/' . $uniqName;
-                $pathImage = '/images/uploads/' . $uniqName;
+                $answerFlePath = '/images/uploads/' . $uniqName;
                 if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile) == false) {
                     $subjectId = $lesson->getSubject()->getId();
                     return $this->render('lesson/show.html.twig', [
@@ -158,8 +158,8 @@ class LessonController extends AbstractController
             ->setCommentStudent($_POST['commentStudent'])
             -> setDate(new \DateTime());
 
-            if($pathImage != ""){
-                $answer->setPathImage($pathImage);
+            if($answerFlePath != ""){
+                $answer->setAnswerFlePath($answerFlePath);
             }
 
             $entityManager->persist($answer);
@@ -167,13 +167,13 @@ class LessonController extends AbstractController
         }
         else{
 
-            $pathImage = "";
+            $answerFlePath = "";
             $good_name = array_filter($_FILES['image']);
 
             if (sizeof($good_name) > 1){
                 $uniqName = Uuid::v4()->toRfc4122() . '-' . basename($_FILES['image']['name']);
                 $uploadfile = '../public/images/uploads/' . $uniqName;
-                $pathImage = '/images/uploads/' . $uniqName;
+                $answerFlePath = '/images/uploads/' . $uniqName;
                 if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile) == false) {
                     $subjectId = $lesson->getSubject()->getId();
                     return $this->render('lesson/show.html.twig', [
@@ -188,18 +188,18 @@ class LessonController extends AbstractController
             ->setCommentStudent($_POST['commentStudent'])
             ->setDate(new \DateTime());
 
-            $oldImage = '../public' . $answer->getPathImage();
+            $oldImage = '../public' . $answer->getAnswerFlePath();
             try {
-                if($oldImage != "../public" and $pathImage != ""){
+                if($oldImage != "../public" and $answerFlePath != ""){
                     unlink($oldImage);
                 }
             } catch (Exception $e) {
                 echo('###################');
             }
             
-            if($pathImage != ""){
+            if($answerFlePath != ""){
                 $answer->setMark(null);
-                $answer->setPathImage($pathImage);
+                $answer->setAnswerFlePath($answerFlePath);
             }
 
             $entityManager->flush();

@@ -43,20 +43,6 @@
             <div class="col-md-12 lesson-text">{{ lesson.video|raw }}</div>
         </div>
         {% if is_granted('ROLE_STUDENT') %} 
-        {# <div class="accordion accordion-flush" id="accordionTest">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTest" aria-expanded="true" aria-controls="collapseTest">
-                    <strong>Пройти тест</strong>
-                </button>
-                </h2>
-                <div id="collapseTest" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionTest">
-                <div class="accordion-body">
-                    {{ lesson.test|raw }}
-                </div>
-                </div>
-            </div>
-        </div> #}
             <div class="row m-2 p-2 lesson-row">
                 <div class="col-md-12 lesson-head">Отправить работу</div>
                 <form enctype="multipart/form-data" name="sendImage" method="post" accept="image/*" action="{{ path('send_image', {'id': lesson.id}) }}">

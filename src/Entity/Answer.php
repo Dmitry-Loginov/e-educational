@@ -35,7 +35,7 @@ class Answer
     /**
      * @ORM\Column(type="string", length=500, nullable=true)
      */
-    private $pathImage;
+    private $answerFlePath;
 
     /**
      * @ORM\Column(type="datetime")
@@ -86,14 +86,14 @@ class Answer
         return $this;
     }
 
-    public function getPathImage(): ?string
+    public function getAnswerFlePath(): ?string
     {
-        return '../..' . $this->pathImage;
+        return '../..' . $this->answerFlePath;
     }
 
-    public function setPathImage(string $pathImage): self
+    public function setAnswerFlePath(string $answerFlePath): self
     {
-        $this->pathImage = $pathImage;
+        $this->answerFlePath = $answerFlePath;
 
         return $this;
     }

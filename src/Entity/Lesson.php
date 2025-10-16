@@ -50,11 +50,6 @@ class Lesson
     private $video;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $test;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Subject::class, inversedBy="lessons")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -148,18 +143,6 @@ class Lesson
     public function setVideo(?string $video): self
     {
         $this->video = $video;
-
-        return $this;
-    }
-
-    public function getTest(): ?string
-    {
-        return $this->test;
-    }
-
-    public function setTest(?string $test): self
-    {
-        $this->test = $test;
 
         return $this;
     }
