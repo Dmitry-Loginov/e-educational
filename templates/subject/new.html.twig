@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Создание предмета{% endblock %}
+
+{% block body %}
+    <a href="{{ path('subject_index') }}" class="back">назад к списку</a>
+    <div class="form-create">
+        <h1>Создание предмета</h1>
+        {{ include('subject/_form.html.twig') }}
+    </div>
+    
+{% endblock %}

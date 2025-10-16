@@ -23,7 +23,6 @@ class LessonType extends AbstractType
                 'required' => false,
                 ])
             ->add('video', TextareaType::class, ['label' => 'Видеоурок', 'required' => false,])
-            ->add('test', TextType::class, ['label' => 'Пройти тест'])
         ;
     }
 

@@ -55,10 +55,10 @@ class Lesson
     private $test;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Theme::class, inversedBy="lessons")
+     * @ORM\ManyToOne(targetEntity=Subject::class, inversedBy="lessons")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $theme;
+    private $subject;
 
     /**
      * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="lesson", orphanRemoval=true)
@@ -164,14 +164,14 @@ class Lesson
         return $this;
     }
 
-    public function getTheme(): ?Theme
+    public function getSubject(): ?subject
     {
-        return $this->theme;
+        return $this->subject;
     }
 
-    public function setTheme(?Theme $theme): self
+    public function setSubject(?subject $subject): self
     {
-        $this->theme = $theme;
+        $this->subject = $subject;
 
         return $this;
     }

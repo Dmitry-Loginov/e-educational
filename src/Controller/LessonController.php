@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\Theme;
+use App\Entity\Subject;
 use App\Entity\Lesson;
 use App\Entity\User;
 use App\Entity\Answer;
@@ -37,17 +37,17 @@ class LessonController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('theme_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('subject_index', [], Response::HTTP_SEE_OTHER);
     }
 
     /**
-     * @Route("/new/{themeId}", name="lesson_new", methods={"GET", "POST"})
+     * @Route("/new/{subjectId}", name="lesson_new", methods={"GET", "POST"})
      * @IsGranted("ROLE_TEACHER")
      */
-    public function new(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine, $themeId=false): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine, $subjectId=false): Response
     {
-        if ($themeId === false) {
-            return $this->redirectToRoute('error_not_fount_theme');
+        if ($subjectId === false) {
+            return $this->redirectToRoute('error_not_fount_subject');
         }
         $lesson = new Lesson();
         $form = $this->createForm(LessonType::class, $lesson);
@@ -55,22 +55,22 @@ class LessonController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $theme = $doctrine->getRepository(Theme::class)->find($themeId);
-            if($theme == null){
-                return $this->redirectToRoute('error_not_fount_theme');
+            $subject = $doctrine->getRepository(Subject::class)->find($subjectId);
+            if($subject == null){
+                return $this->redirectToRoute('error_not_fount_subject');
             }
-            $lesson->setTheme($theme);
+            $lesson->setSubject($subject);
 
             $entityManager->persist($lesson);
             $entityManager->flush();
 
-            return $this->redirectToRoute('theme_index');
+            return $this->redirectToRoute('subject_index');
         }
 
         return $this->renderForm('lesson/new.html.twig', [
             'lesson' => $lesson,
             'form' => $form,
-            'themeId' => $themeId,
+            'subjectId' => $subjectId,
         ]);
     }
 
@@ -79,7 +79,7 @@ class LessonController extends AbstractController
      */
     public function show(Lesson $lesson, ManagerRegistry $doctrine): Response
     {
-        $themeId = $lesson->getTheme()->getId();
+        $subjectId = $lesson->getSubject()->getId();
         $answer = $doctrine->getRepository(Answer::class)->findOneBy([
             'lesson' => $lesson,
             'user' => $this->getUser(),
@@ -87,7 +87,7 @@ class LessonController extends AbstractController
 
         return $this->render('lesson/show.html.twig', [
             'lesson' => $lesson,
-            'themeId' => $themeId,
+            'subjectId' => $subjectId,
             'answer' => $answer,
         ]);
     }
@@ -100,23 +100,23 @@ class LessonController extends AbstractController
     {
         $form = $this->createForm(LessonType::class, $lesson);
         $form->handleRequest($request);
-        $theme = $lesson->getTheme();
+        $subject = $lesson->getSubject();
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $theme = $doctrine->getRepository(Theme::class)->find($theme->getId());    
-            if($theme == null){
-                return $this->redirectToRoute('error_not_fount_theme');
+            $subject = $doctrine->getRepository(Subject::class)->find($subject->getId());    
+            if($subject == null){
+                return $this->redirectToRoute('error_not_fount_subject');
             }
             $entityManager->flush();
 
-            return $this->redirectToRoute('theme_index');
+            return $this->redirectToRoute('subject_index');
         }
 
         return $this->renderForm('lesson/edit.html.twig', [
             'lesson' => $lesson,
             'form' => $form,
-            'themeId' => $theme->getId(),
+            'subjectId' => $subject->getId(),
         ]);
     }
 
@@ -143,10 +143,10 @@ class LessonController extends AbstractController
                 $uploadfile = '../public/images/uploads/' . $uniqName;
                 $pathImage = '/images/uploads/' . $uniqName;
                 if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile) == false) {
-                    $themeId = $lesson->getTheme()->getId();
+                    $subjectId = $lesson->getSubject()->getId();
                     return $this->render('lesson/show.html.twig', [
                         'lesson' => $lesson,
-                        'themeId' => $themeId,
+                        'subjectId' => $subjectId,
                         'inf_msg' => 'Произошла ошибка при отправке изображения.',
                     ]);
                 }
@@ -175,10 +175,10 @@ class LessonController extends AbstractController
                 $uploadfile = '../public/images/uploads/' . $uniqName;
                 $pathImage = '/images/uploads/' . $uniqName;
                 if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile) == false) {
-                    $themeId = $lesson->getTheme()->getId();
+                    $subjectId = $lesson->getSubject()->getId();
                     return $this->render('lesson/show.html.twig', [
                         'lesson' => $lesson,
-                        'themeId' => $themeId,
+                        'subjectId' => $subjectId,
                         'inf_msg' => 'Произошла ошибка при отправке изображения.',
                     ]);
                 }

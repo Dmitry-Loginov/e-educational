@@ -3,7 +3,7 @@
 {% block title %}Изменение урока{% endblock %}
 
 {% block body %}
-  <a href="{{ path('theme_index', {'id' : themeId}) }}" class="back">назад к списку</a>
+  <a href="{{ path('subject_index', {'id' : subjectId}) }}" class="back">назад к списку</a>
     {{ include('lesson/_delete_form.html.twig') }}
   <div class = "form-create">
     <h1>Изменение урока</h1>
@@ -11,6 +11,7 @@
     </div>
   <script>
     tinymce.init({
+      api_key: 'va6ycm1fboepjkoxru00daxuj9pah479fsglsqjjc3aghd5t',
       selector: '#lesson_theory',
       plugins: 'media table image code',
       height: '300',

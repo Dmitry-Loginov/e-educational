@@ -3,29 +3,67 @@
 {% block title %}Группы{% endblock %}
 
 {% block body %}
-    <h1>Группы</h1>
+    <table class="table">
+        <thead style="background-color: rgb(96, 27, 27); color: white;">
+            <tr class="head-row">
+                <th><h3 class="subject-header">Группы</h3></th>
+            </tr>
+        </thead>
 
-    <div class="row">
-        {% for group in groups %}
-            <div class="col-md-4">
-                <div class="card mb-4" style="border-radius: 15px;">
-                    <div class="card-body text-center">
-                        <a href="{{ path('group_themes', {'id': group.id}) }}" class="stretched-link">{{ group.name }}</a>
-                    </div>
-                    {# {% if is_granted('ROLE_TEACHER') %}
-                        <div class="card-footer d-flex justify-content-between">
-                            <a href="{{ path('group_edit', {'id': group.id}) }}" class="btn btn-outline-secondary btn-sm">Изменить</a>
-                            {{ include('group/_delete_form.html.twig') }}
+        <tbody class="accordion accordion-flush" id="accordionGroups">
+            {% for group in groups %}
+                <tr class="accordion-item">
+                    <td>
+                        <h2 class="accordion-header" id="group{{ group.id }}">
+                            <button class="accordion-button collapsed" 
+                                    type="button" 
+                                    data-bs-toggle="collapse" 
+                                    data-bs-target="#colGroup{{ group.id }}" 
+                                    aria-expanded="false" 
+                                    aria-controls="colGroup{{ group.id }}"
+                                    style="background-color: rgb(241, 241, 241); font-weight: 600;">
+                                {{ group.name }}
+                            </button>
+                        </h2>
+
+                        <div id="colGroup{{ group.id }}" class="accordion-collapse collapse" aria-labelledby="group{{ group.id }}" data-bs-parent="#accordionGroups">
+                            <div class="accordion-body">
+                                <div class="list-group">
+                                    <a href="{{ path('group_subjects', {'id': group.id}) }}" 
+                                       class="list-group-item list-group-item-action m-2" 
+                                       style="background-color: rgb(248, 248, 248);">
+                                        Перейти к предметам
+                                    </a>
+                                </div>
+
+                                {% if is_granted('ROLE_TEACHER') %}
+                                    <div class="d-flex align-items-center flex-wrap mt-2">
+                                        <a href="{{ path('group_edit', {'id': group.id}) }}" 
+                                           class="btn btn-outline-secondary btn-sm m-1">
+                                            Изменить
+                                        </a>
+                                        {{ include('group/_delete_form.html.twig', { group: group }) }}
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
-                    {% endif %} #}
-                </div>
-            </div>
-        {% else %}
-            <p>Нет групп</p>
-        {% endfor %}
-    </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3" class="text-center text-muted">Нет групп</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
     {% if is_granted('ROLE_TEACHER') %}
-        <a href="{{ path('group_new') }}" class="btn btn-primary">Создать группу</a>
+        <div class="text-center mt-3">
+            <a href="{{ path('group_new') }}" 
+               class="btn btn-primary px-4 py-2" 
+               style="background-color: rgb(96, 27, 27); border: none;">
+                Создать новую группу
+            </a>
+        </div>
     {% endif %}
 {% endblock %}

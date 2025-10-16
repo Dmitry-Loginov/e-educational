@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use App\Repository\ThemeRepository;
+use App\Repository\SubjectRepository;
 
 /**
  * @Route("/group")
@@ -45,20 +45,23 @@ class GroupController extends AbstractController
         return $this->render('group/new.html.twig', ['form' => $form->createView()]);
     }
 
-    /** @Route("/{id}/delete", name="group_delete") */
-    public function delete(Group $group, EntityManagerInterface $em)
+    /**
+     * @Route("/{id}", name="group_delete", methods={"POST"})
+     * @IsGranted("ROLE_TEACHER")
+     */
+    public function delete(Request $request, Group $group, EntityManagerInterface $em): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
-        // обнуляем группы у пользователей
-        foreach ($group->getUserToGroups() as $link) {
-            $em->remove($link);
+        if ($this->isCsrfTokenValid('delete' . $group->getId(), $request->request->get('_token'))) {
+            foreach ($group->getUserToGroups() as $link) {
+                $em->remove($link);
+            }
+            $em->remove($group);
+            $em->flush();
         }
-        $em->remove($group);
-        $em->flush();
 
         return $this->redirectToRoute('group_index');
     }
+
 
     /** @Route("/{id}", name="group_show") */
     public function show(Group $group)
@@ -81,13 +84,13 @@ class GroupController extends AbstractController
     }
 
     /**
-     * @Route("/group/{id}/themes", name="group_themes", methods={"GET"})
+     * @Route("/group/{id}/subjects", name="group_subjects", methods={"GET"})
      */
-    public function themes(Group $group, ThemeRepository $themeRepository): Response
+    public function subjects(Group $group, SubjectRepository $subjectRepository): Response
     {
-        return $this->render('group/themes.html.twig', [
+        return $this->render('group/subjects.html.twig', [
             'group' => $group,
-            'themes' => $group->getThemes(),
+            'subjects' => $group->getSubjects(),
         ]);
     }
 }

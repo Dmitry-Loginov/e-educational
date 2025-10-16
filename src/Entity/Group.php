@@ -5,7 +5,7 @@ use App\Repository\GroupRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use App\Entity\Theme;
+use App\Entity\Subject;
 
 /**
  * @ORM\Entity(repositoryClass=GroupRepository::class)
@@ -23,41 +23,41 @@ class Group
     private $userToGroups;
 
     /**
-     * @ORM\OneToMany(targetEntity=Theme::class, mappedBy="group", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Subject::class, mappedBy="group", orphanRemoval=true)
      */
-    private $themes;
+    private $subjects;
 
     public function __construct()
     {
         $this->userToGroups = new ArrayCollection();
-        $this->themes = new ArrayCollection();
+        $this->subjects = new ArrayCollection();
         // Если есть другие коллекции, оставь их
     }
 
     /**
      * @return Collection<int, Lesson>
      */
-    public function getThemes(): Collection
+    public function getSubjects(): Collection
     {
-        return $this->themes;
+        return $this->subjects;
     }
 
-    public function addTheme(Theme $theme): self
+    public function addsubject(subject $subject): self
     {
-        if (!$this->themes->contains($theme)) {
-            $this->themes->add($theme);
-            $theme->setGroup($this);
+        if (!$this->subjects->contains($subject)) {
+            $this->subjects->add($subject);
+            $subject->setGroup($this);
         }
 
         return $this;
     }
 
-    public function removeTheme(Theme $theme): self
+    public function removesubject(subject $subject): self
     {
-        if ($this->themes->removeElement($theme)) {
+        if ($this->subjects->removeElement($subject)) {
             // set the owning side to null (unless already changed)
-            if ($theme->getGroup() === $this) {
-                $theme->setGroup(null);
+            if ($subject->getGroup() === $this) {
+                $subject->setGroup(null);
             }
         }
 

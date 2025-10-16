@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\ThemeRepository;
+use App\Repository\SubjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Group as UserGroup;
 
 /**
- * @ORM\Entity(repositoryClass=ThemeRepository::class)
+ * @ORM\Entity(repositoryClass=SubjectRepository::class)
  */
-class Theme
+class Subject
 {
     /**
      * @ORM\Id
@@ -26,19 +26,19 @@ class Theme
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="themes")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="subjects")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Group::class, inversedBy="themes")
+     * @ORM\ManyToOne(targetEntity=Group::class, inversedBy="subjects")
      * @ORM\JoinColumn(nullable=true)
      */
     private $group;
 
     /**
-     * @ORM\OneToMany(targetEntity=Lesson::class, mappedBy="theme", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Lesson::class, mappedBy="subject", orphanRemoval=true)
      */
     private $lessons;
 
@@ -105,7 +105,7 @@ class Theme
     {
         if (!$this->lessons->contains($lesson)) {
             $this->lessons[] = $lesson;
-            $lesson->setTheme($this);
+            $lesson->setSubject($this);
         }
 
         return $this;
@@ -115,8 +115,8 @@ class Theme
     {
         if ($this->lessons->removeElement($lesson)) {
             // set the owning side to null (unless already changed)
-            if ($lesson->getTheme() === $this) {
-                $lesson->setTheme(null);
+            if ($lesson->getSubject() === $this) {
+                $lesson->setSubject(null);
             }
         }
 

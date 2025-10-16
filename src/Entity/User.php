@@ -45,9 +45,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Theme::class, mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Subject::class, mappedBy="user", orphanRemoval=true)
      */
-    private $themes;
+    private $subjects;
 
     /**
      * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="user", orphanRemoval=true)
@@ -59,7 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->themes = new ArrayCollection();
+        $this->subjects = new ArrayCollection();
         $this->answers = new ArrayCollection();
     }
 
@@ -171,29 +171,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Theme>
+     * @return Collection<int, subject>
      */
-    public function getThemes(): Collection
+    public function getSubjects(): Collection
     {
-        return $this->themes;
+        return $this->subjects;
     }
 
-    public function addTheme(Theme $theme): self
+    public function addsubject(subject $subject): self
     {
-        if (!$this->themes->contains($theme)) {
-            $this->themes[] = $theme;
-            $theme->setUser($this);
+        if (!$this->subjects->contains($subject)) {
+            $this->subjects[] = $subject;
+            $subject->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeTheme(Theme $theme): self
+    public function removesubject(subject $subject): self
     {
-        if ($this->themes->removeElement($theme)) {
+        if ($this->subjects->removeElement($subject)) {
             // set the owning side to null (unless already changed)
-            if ($theme->getUser() === $this) {
-                $theme->setUser(null);
+            if ($subject->getUser() === $this) {
+                $subject->setUser(null);
             }
         }
 

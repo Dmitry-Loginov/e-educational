@@ -3,7 +3,7 @@
 {% block title %}Урок{% endblock %}
 
 {% block body %}
-    <a href="{{ path('theme_index') }}" class="back">назад к списку</a>
+    <a href="{{ path('subject_index') }}" class="back">назад к списку</a>
 
     {% if is_granted('ROLE_ADMIN') %} 
         <a href="{{ path('lesson_edit', {'id': lesson.id}) }}" class="back">изменить</a>
@@ -11,7 +11,7 @@
     {% endif %}
 
     <div class="container lesson-container">
-    <h1>{{ lesson.name }} </h1>
+    <h1 class="red-text">{{ lesson.name }} </h1>
         <div class="row m-2 mt-3 p-2 lesson-row">
             <div class="col-md-2 lesson-head">Цель</div>
             <div class="col-md-auto lesson-text">{{ lesson.target }}</div>
@@ -43,7 +43,7 @@
             <div class="col-md-12 lesson-text">{{ lesson.video|raw }}</div>
         </div>
         {% if is_granted('ROLE_STUDENT') %} 
-        <div class="accordion accordion-flush" id="accordionTest">
+        {# <div class="accordion accordion-flush" id="accordionTest">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTest" aria-expanded="true" aria-controls="collapseTest">
@@ -56,13 +56,13 @@
                 </div>
                 </div>
             </div>
-        </div>
+        </div> #}
             <div class="row m-2 p-2 lesson-row">
                 <div class="col-md-12 lesson-head">Отправить работу</div>
                 <form enctype="multipart/form-data" name="sendImage" method="post" accept="image/*" action="{{ path('send_image', {'id': lesson.id}) }}">
                     <label for="commentStudent" class="form-label mb-0">Комментарий</label>
                     <textarea name="commentStudent" id="commentStudent" class="form-control"></textarea>
-                    <label for="image" class="form-label mt-2 mb-0">Изображение</label>
+                    <label for="image" class="form-label mt-2 mb-0">Файл</label>
                     <input class="form-control" type="file" id="image" name="image" onchange="preview()" class="mt-0">
                     <button onclick="clearImage()" class="btn btn-primary mt-3">Отправить</button>
                 </form>

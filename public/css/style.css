@@ -214,13 +214,17 @@ label {
 h1,
 h2,
 h3 {
-    color: rgb(96, 27, 27);
+    color: rgb(255, 255, 255);
 }
 
 .head-row {
     border-bottom: 2px solid rgb(96, 27, 27);
     background-color: rgb(96, 27, 27);
     color: whitesmoke;
+}
+
+.red-text {
+    color: rgb(96, 27, 27);
 }
 
 tr {
@@ -329,7 +333,7 @@ tr {
     box-shadow: 0 0 0 0.25rem rgb(132 38 38 / 25%);
 }
 
-.theme-header {
+.subject-header {
     color: white;
 }
 
