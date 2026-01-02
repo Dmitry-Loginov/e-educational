@@ -158,6 +158,7 @@ label {
 .head-in {
     width: 100%;
     text-align: center;
+    color: rgb(96, 27, 27);
     box-sizing: border-box;
 }
 
@@ -211,11 +212,7 @@ label {
     color: red;
 }
 
-h1,
-h2,
-h3 {
-    color: rgb(255, 255, 255);
-}
+
 
 .head-row {
     border-bottom: 2px solid rgb(96, 27, 27);
@@ -511,4 +508,10 @@ a.link:hover {
     div.footer{
         font-size: 13px;
     }
+}
+
+h1,
+h2,
+h3 {
+    color: rgb(96, 27, 27);
 }
