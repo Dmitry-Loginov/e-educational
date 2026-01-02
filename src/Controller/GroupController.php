@@ -16,6 +16,7 @@ use App\Repository\SubjectRepository;
 
 /**
  * @Route("/group")
+ * @IsGranted("ROLE_GUEST")
  */
 class GroupController extends AbstractController
 {
