@@ -79,6 +79,11 @@ class LessonController extends AbstractController
      */
     public function show(Lesson $lesson, ManagerRegistry $doctrine): Response
     {
+
+        $subject = $lesson->getSubject();
+        $group = $subject->getGroup(); // Предполагается, что у Subject есть связь с Group
+        $groupId = $group ? $group->getId() : null;
+
         $subjectId = $lesson->getSubject()->getId();
         $answer = $doctrine->getRepository(Answer::class)->findOneBy([
             'lesson' => $lesson,
@@ -86,10 +91,11 @@ class LessonController extends AbstractController
         ]);
 
         return $this->render('lesson/show.html.twig', [
-            'lesson' => $lesson,
-            'subjectId' => $subjectId,
-            'answer' => $answer,
-        ]);
+        'lesson' => $lesson,
+        'subjectId' => $subject->getId(),
+        'answer' => $answer,
+        'groupId' => $groupId, // Добавляем groupId
+    ]);
     }
 
     /**
