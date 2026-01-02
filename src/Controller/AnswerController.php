@@ -64,23 +64,22 @@ class AnswerController extends AbstractController
      */
     public function delete(Request $request, Answer $answer, EntityManagerInterface $entityManager): Response
     {
-      $filePath = $answer->getAnswerFlePath();
+        $filePath = $answer->getAnswerFlePath();
+        $fileName = basename($filePath);
         
-      // Убираем начальные ../ или ..\ из пути
-      $filePath = ltrim($filePath, './');
-      while (strpos($filePath, '../') === 0 || strpos($filePath, '..\\') === 0) {
-          $filePath = substr($filePath, 3);
-      }
-      
-      if ($filePath && file_exists('public' . $filePath)) {
-          unlink('public' . $filePath);
-      }
+        // Используем абсолютный путь к папке загрузок
+        $uploadsDir = dirname(__DIR__, 2) . '/public/images/uploads/';
+        $fullPath = $uploadsDir . $fileName;
         
-      if ($this->isCsrfTokenValid('delete'.$answer->getId(), $request->request->get('_token'))) {
-          $entityManager->remove($answer);
-          $entityManager->flush();
-      }
+        if ($fileName && file_exists($fullPath)) {
+            unlink($fullPath);
+        }
+        
+        if ($this->isCsrfTokenValid('delete'.$answer->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($answer);
+            $entityManager->flush();
+        }
 
-      return $this->redirectToRoute('answer_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('answer_index', [], Response::HTTP_SEE_OTHER);
     }
 }
