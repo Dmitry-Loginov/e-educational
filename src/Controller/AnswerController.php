@@ -64,13 +64,23 @@ class AnswerController extends AbstractController
      */
     public function delete(Request $request, Answer $answer, EntityManagerInterface $entityManager): Response
     {
-        $oldImage = '../public/' . $answer->getAnswerFlePath();
-        unlink($oldImage);
-        if ($this->isCsrfTokenValid('delete'.$answer->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($answer);
-            $entityManager->flush();
-        }
+      $filePath = $answer->getAnswerFlePath();
+        
+      // Убираем начальные ../ или ..\ из пути
+      $filePath = ltrim($filePath, './');
+      while (strpos($filePath, '../') === 0 || strpos($filePath, '..\\') === 0) {
+          $filePath = substr($filePath, 3);
+      }
+      
+      if ($filePath && file_exists('public' . $filePath)) {
+          unlink('public' . $filePath);
+      }
+        
+      if ($this->isCsrfTokenValid('delete'.$answer->getId(), $request->request->get('_token'))) {
+          $entityManager->remove($answer);
+          $entityManager->flush();
+      }
 
-        return $this->redirectToRoute('answer_index', [], Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('answer_index', [], Response::HTTP_SEE_OTHER);
     }
 }

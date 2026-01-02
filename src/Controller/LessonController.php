@@ -188,9 +188,9 @@ class LessonController extends AbstractController
             ->setCommentStudent($_POST['commentStudent'])
             ->setDate(new \DateTime());
 
-            $oldImage = '../public' . $answer->getAnswerFlePath();
+            $oldImage = 'public' . $answer->getAnswerFlePath();
             try {
-                if($oldImage != "../public" and $answerFlePath != ""){
+                if($oldImage != "public" and $answerFlePath != ""){
                     unlink($oldImage);
                 }
             } catch (Exception $e) {
