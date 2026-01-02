@@ -22,16 +22,17 @@ class GroupController extends AbstractController
     /** @Route("/", name="group_index") */
     public function index(GroupRepository $repo)
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         return $this->render('group/index.html.twig', [
             'groups' => $repo->findAll(),
         ]);
     }
 
-    /** @Route("/new", name="group_new") */
+    /** 
+     * @Route("/new", name="group_new")
+     * @IsGranted("ROLE_TEACHER")
+     */
     public function new(Request $req, EntityManagerInterface $em)
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $group = new Group();
         $form = $this->createForm(GroupType::class, $group);
         $form->handleRequest($req);
@@ -66,14 +67,15 @@ class GroupController extends AbstractController
     /** @Route("/{id}", name="group_show") */
     public function show(Group $group)
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         return $this->render('group/show.html.twig', ['group' => $group]);
     }
 
-    /** @Route("/{id}/edit", name="group_edit") */
+    /** 
+     * @Route("/{id}/edit", name="group_edit")
+     * @IsGranted("ROLE_TEACHER")
+     */
     public function edit(Request $req, Group $group, EntityManagerInterface $em)
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $form = $this->createForm(GroupType::class, $group);
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid()) {

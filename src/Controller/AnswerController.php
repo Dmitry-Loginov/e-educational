@@ -44,6 +44,7 @@ class AnswerController extends AbstractController
 
     /**
      * @Route("/{id}", name="set_teacher_response", methods={"POST"})
+     * @IsGranted("ROLE_TEACHER")
      */
     public function SetMark(ManagerRegistry $doctrine, int $id): Response
     {
