@@ -127,6 +127,7 @@ class LessonController extends AbstractController
     public function sendAnswer(Request $request, Lesson $lesson, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
         date_default_timezone_set('Europe/Minsk');
+        $comment = $request->request->get('commentStudent', '');
         $answer = $doctrine->getRepository(Answer::class)->findOneBy([
             'lesson' => $lesson,
             'user' => $this->getUser(),
@@ -136,6 +137,7 @@ class LessonController extends AbstractController
             
             $answer = new Answer();
             $answerFlePath = "";
+            $answer->setCommentStudent($comment);
             $good_name = array_filter($_FILES['image']);
 
             if (sizeof($good_name) > 1){
@@ -168,6 +170,7 @@ class LessonController extends AbstractController
         else{
 
             $answerFlePath = "";
+            $answer->setCommentStudent($comment);
             $good_name = array_filter($_FILES['image']);
 
             if (sizeof($good_name) > 1){
